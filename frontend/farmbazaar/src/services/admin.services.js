@@ -101,6 +101,9 @@ const assignProductsToFarmer = (farmerId, productIds) => {
   return http.post(`/admin/assign/${farmerId}`, productIds);
 };
 
+const getProductsByFarmerId = (farmerId) => {
+  return http.get(`/admin/${farmerId}/products`);
+};
 
 export {
   createAdminUser,
@@ -127,5 +130,6 @@ export {
   updateProduct,
   deleteProduct,
   getAllProducts,
-  assignProductsToFarmer
+  assignProductsToFarmer,
+  getProductsByFarmerId
 };

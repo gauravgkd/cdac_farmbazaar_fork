@@ -285,7 +285,17 @@ public class AdminController {
         }
     }
 
-
+    // Endpoint to get products assigned to a specific farmer
+    @GetMapping("/{farmerId}/products")
+    public List<Product> getProductsByFarmerId(@PathVariable int farmerId) {
+        Farmer farmer = farmerRepository.findById(farmerId).orElse(null);
+        if (farmer != null) {
+            return farmer.getProducts();
+        } else {
+            // Handle case where farmer with given ID is not found
+            return null; // Or return an empty list or throw an exception as per your requirement
+        }
+    }
 
 
 }

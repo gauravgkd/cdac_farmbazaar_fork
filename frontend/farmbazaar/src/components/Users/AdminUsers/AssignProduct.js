@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { getAllFarmerUsers, getAllProducts, assignProductsToFarmer } from '../../../services/admin.services';
+import { getAllFarmerUsers, getAllProducts, assignProductsToFarmer, getProductsByFarmerId } from '../../../services/admin.services';
 
 const AssignProducts = () => {
     const [farmers, setFarmers] = useState([]);
     const [products, setProducts] = useState([]);
     const [selectedFarmer, setSelectedFarmer] = useState('');
     const [selectedProducts, setSelectedProducts] = useState([]);
+    const [unassignedProducts, setUnassignedProducts] = useState([]);
+
 
     useEffect(() => {
         const fetchFarmers = async () => {
@@ -30,6 +32,24 @@ const AssignProducts = () => {
         fetchProducts();
     }, []);
 
+    useEffect(() => {
+        const fetchUnassignedProducts = async () => {
+            if (selectedFarmer) {
+                try {
+                    const response = await getAllProducts();
+                    const allProducts = response.data;
+                    const assignedProductIds = (await getProductsByFarmerId(selectedFarmer)).data.map(product => product.id);
+                    const unassignedProducts = allProducts.filter(product => !assignedProductIds.includes(product.id));
+                    setProducts(unassignedProducts); // Update products state with unassigned products
+                } catch (error) {
+                    console.error('Error fetching unassigned products:', error);
+                }
+            }
+        };
+    
+        fetchUnassignedProducts();
+    }, [selectedFarmer]);
+    
     const handleAssignProducts = async () => {
         try {
             await assignProductsToFarmer(selectedFarmer, selectedProducts);
@@ -40,7 +60,11 @@ const AssignProducts = () => {
             console.error('Error assigning products to farmer:', error);
         }
     };
-    
+
+    const handleSelectFarmer = (e) => {
+        setSelectedFarmer(e.target.value);
+        setSelectedProducts([]); // Reset selected products when selecting a new farmer
+    };
 
     return (
         <div className="container mt-5">
@@ -48,7 +72,7 @@ const AssignProducts = () => {
             <div className="row">
                 <div className="col-md-6">
                     <label htmlFor="selectFarmer" className="form-label">Select Farmer:</label>
-                    <select id="selectFarmer" className="form-select mb-3" value={selectedFarmer} onChange={(e) => setSelectedFarmer(e.target.value)}>
+                    <select id="selectFarmer" className="form-select mb-3" value={selectedFarmer} onChange={handleSelectFarmer}>
                         <option value="">Select Farmer</option>
                         {farmers.map(farmer => (
                             <option key={farmer.id} value={farmer.id}>{farmer.fname} {farmer.lname}</option>
