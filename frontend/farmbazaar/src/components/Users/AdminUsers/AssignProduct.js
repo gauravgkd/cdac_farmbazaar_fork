@@ -40,7 +40,7 @@ const AssignProducts = () => {
                     const allProducts = response.data;
                     const assignedProductIds = (await getProductsByFarmerId(selectedFarmer)).data.map(product => product.id);
                     const unassignedProducts = allProducts.filter(product => !assignedProductIds.includes(product.id));
-                    setProducts(unassignedProducts); // Update products state with unassigned products
+                    setProducts(unassignedProducts);
                 } catch (error) {
                     console.error('Error fetching unassigned products:', error);
                 }

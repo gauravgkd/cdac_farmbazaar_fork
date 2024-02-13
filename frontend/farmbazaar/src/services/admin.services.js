@@ -82,12 +82,22 @@ const getAllCategories = () => {
 };
 
 const createProduct = (data) => {
-  return http.post('/admin/products', data);
+  return http.post('/admin/products', data, {
+      headers: {
+          'Content-Type': 'multipart/form-data' // Ensure proper content type
+      }
+  });
 };
 
-const updateProduct = (id, data) => {
-  return http.put(`/admin/products/${id}`, data);
+
+const updateProduct = (id, formData) => {
+  return http.put(`/admin/products/${id}`, formData, {
+    headers: {
+      'Content-Type': 'multipart/form-data'
+    }
+  });
 };
+
 
 const deleteProduct = (id) => {
   return http.delete(`/admin/products/${id}`);

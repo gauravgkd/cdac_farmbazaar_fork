@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { getAllProducts, updateProduct, deleteProduct } from '../../../services/admin.services';
 import AddProduct from './AddProduct';
+import axios from 'axios';
 
 const Product = () => {
     const [products, setProducts] = useState([]);
@@ -9,6 +10,7 @@ const Product = () => {
     const [editingProduct, setEditingProduct] = useState(null);
     const [editedData, setEditedData] = useState({});
     const [showAddProductForm, setShowAddProductForm] = useState(false);
+    const [imageFile, setImageFile] = useState(null);
 
     // Fetch all products from the server
     useEffect(() => {
@@ -40,34 +42,50 @@ const Product = () => {
         }
     };
 
+    // Function to handle editing a product
     const handleEdit = (id) => {
         setEditingProduct(id);
         const productToEdit = products.find(product => product.id === id);
         setEditedData(productToEdit);
     };
 
+    // Function to handle saving edits to a product
     const handleSave = async (id) => {
         try {
-            await updateProduct(id, editedData);
+            const formData = new FormData();
+            // Append image file to FormData if selected
+            if (imageFile) {
+                formData.append('imageFile', imageFile);
+            }
+            formData.append('name', editedData.name);
+            formData.append('price', editedData.price);
+            formData.append('quantity', editedData.quantity);
+            formData.append('pre_order_quantity', editedData.pre_order_quantity);
+      
+            await updateProduct(id, formData);
             setEditingProduct(null);
-            // You may want to fetch updated product list here if necessary
+            // Fetch updated product list
+            const response = await getAllProducts();
+            setProducts(response.data);
         } catch (error) {
             console.error('Error updating product:', error);
             // Handle error
         }
     };
+      
 
+    // Function to handle deleting a product
     const handleDelete = async (id) => {
         try {
             await deleteProduct(id);
             setProducts(products.filter(product => product.id !== id));
-            // You may want to fetch updated product list here if necessary
         } catch (error) {
             console.error('Error deleting product:', error);
             // Handle error
         }
     };
 
+    // Function to handle input changes
     const handleInputChange = (field, value) => {
         setEditedData(prevState => ({
             ...prevState,
@@ -75,14 +93,23 @@ const Product = () => {
         }));
     };
 
+    // Function to handle image upload
+    const handleImageUpload = (e) => {
+        const file = e.target.files[0]; // Get the selected file
+        setImageFile(file);
+    };
+
+    // Render loading state if data is still loading
     if (loading) {
         return <div>Loading...</div>;
     }
 
+    // Render error state if there is an error
     if (error) {
         return <div>Error: {error}</div>;
     }
 
+    // Render the product table
     return (
         <div className="container-lg">
             <div className="table-responsive">
@@ -105,7 +132,7 @@ const Product = () => {
                                 <th>Price</th>
                                 <th>Quantity</th>
                                 <th>Pre-order Quantity</th>
-                                <th>Category</th>
+                                <th>Image</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
@@ -141,13 +168,11 @@ const Product = () => {
                                         )}
                                     </td>
                                     <td>
-                                        {editingProduct === product.id ? (
-                                            <input type="text" className="form-control" value={product.category.name} readOnly />
-                                        ) : (
-                                            product.category.name // Assuming category is an object with a 'name' property
+                                        <img src={product.imageUrl} alt="Product Image" />
+                                        {editingProduct === product.id && (
+                                            <input type="file" className="form-control" onChange={(e) => handleImageUpload(e)} />
                                         )}
                                     </td>
-
                                     <td>
                                         {editingProduct === product.id ? (
                                             <button onClick={() => handleSave(product.id)} className="btn btn-success">Save</button>
@@ -169,3 +194,4 @@ const Product = () => {
 };
 
 export default Product;
+

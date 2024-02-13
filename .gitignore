@@ -30,6 +30,7 @@ factorypath
 *.jar
 .mvn/
 .settings/
+.metadata/
 
 # OS specific files
 .DS_Store

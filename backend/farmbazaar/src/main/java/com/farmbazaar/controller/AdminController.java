@@ -2,9 +2,12 @@ package com.farmbazaar.controller;
 
 import com.farmbazaar.model.entity.*;
 import com.farmbazaar.model.repository.*;
+import com.farmbazaar.service.ProductService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
+import org.springframework.web.multipart.MultipartFile;
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -29,6 +32,9 @@ public class AdminController {
 
     @Autowired
     private ProductRepository productRepository;
+    
+    @Autowired
+    private ProductService productService;
 
     // CRUD operations for Admin users
 
@@ -210,26 +216,61 @@ public class AdminController {
     }
 
     // CRUD operations for products
-
+//    @PostMapping("/products")
+//    public Product createProduct(@RequestParam("imageFile") MultipartFile imageFile, @RequestParam("name") String name, @RequestParam("price") double price, @RequestParam("quantity") double quantity, @RequestParam("pre_order_quantity") double preOrderQuantity) {
+//        try {
+//            // Convert MultipartFile to byte array and save the image data
+//            byte[] imageData = imageFile.getBytes();
+//            // Create a new Product object with image data
+//            Product product = new Product();
+//            product.setImage(imageData);
+//            product.setName(name);
+//            product.setPrice(price);
+//            product.setQuantity(quantity);
+//            product.setPre_order_quantity(preOrderQuantity);
+//            // Save the product to the database
+//            return productRepository.save(product);
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//            // Handle error
+//            return null;
+//        }
+//    }
+    
     @PostMapping("/products")
-    public Product createProduct(@RequestBody Product product) {
-        return productRepository.save(product);
+    public Product createProduct(@RequestParam("name") String name,
+                                 @RequestParam("price") double price,
+                                 @RequestParam("quantity") double quantity,
+                                 @RequestParam("pre_order_quantity") double preOrderQuantity,
+                                 @RequestParam("category_id") int categoryId,
+                                 @RequestParam("imageFile") MultipartFile imageFile) {
+        return productService.createProduct(name, price, quantity, preOrderQuantity, categoryId, imageFile);
     }
 
     @PutMapping("/products/{id}")
-    public Product updateProduct(@PathVariable int id, @RequestBody Product productDetails) {
-        Product product = productRepository.findById(id).orElse(null);
-        if (product != null) {
-            product.setName(productDetails.getName());
-            product.setPrice(productDetails.getPrice());
-            product.setQuantity(productDetails.getQuantity());
-            product.setPre_order_quantity(productDetails.getPre_order_quantity());
-            // Update other product details as needed
-            // If there are no other details to update, you can remove this comment
-            
-            return productRepository.save(product);
+    public Product updateProduct(@PathVariable int id, @RequestParam("imageFile") MultipartFile imageFile, @RequestParam("name") String name, @RequestParam("price") double price, @RequestParam("quantity") double quantity, @RequestParam("pre_order_quantity") double preOrderQuantity) {
+        try {
+            Product product = productRepository.findById(id).orElse(null);
+            if (product != null) {
+                // Update image data if provided
+                if (!imageFile.isEmpty()) {
+                    byte[] imageData = imageFile.getBytes();
+                    product.setImage(imageData);
+                }
+                // Update other product details
+                product.setName(name);
+                product.setPrice(price);
+                product.setQuantity(quantity);
+                product.setPre_order_quantity(preOrderQuantity);
+                // Save the updated product to the database
+                return productRepository.save(product);
+            }
+            return null; // Handle not found
+        } catch (IOException e) {
+            e.printStackTrace();
+            // Handle error
+            return null;
         }
-        return null; // Handle not found
     }
 
 
@@ -243,38 +284,9 @@ public class AdminController {
         return productRepository.findAll();
     }
 
+    
     // Assign product to farmer
-//		single product one to one
-//    @PostMapping("/assign/{productId}/to/{farmerId}")
-//    public void assignProductToFarmer(@PathVariable int productId, @PathVariable int farmerId) {
-//        Product product = productRepository.findById(productId).orElse(null);
-//        Farmer farmer = farmerRepository.findById(farmerId).orElse(null);
-//        if (product != null && farmer != null) {
-//            product.setFarmer(farmer);
-//            productRepository.save(product);
-//        }
-//    }
-    
-//    @PostMapping("/assign/to/{farmerId}")
-//    public void assignProductsToFarmer(@PathVariable int farmerId, @RequestBody List<Integer> productIds) {
-//        Farmer farmer = farmerRepository.findById(farmerId).orElse(null);
-//        if (farmer != null) {
-//            List<Product> products = productRepository.findAllById(productIds);
-//            products.forEach(product -> product.setFarmer(farmer));
-//            productRepository.saveAll(products);
-//        }
-//    }
-    
-//    @PostMapping("/assign/{farmerId}")
-//    public void assignProductsToFarmer(@PathVariable int farmerId, @RequestBody List<Integer> productIds) {
-//        Farmer farmer = farmerRepository.findById(farmerId).orElse(null);
-//        if (farmer != null) {
-//            List<Product> products = productRepository.findAllById(productIds);
-//            products.forEach(product -> farmer.getProducts().add(product));
-//            farmerRepository.save(farmer);
-//        }
-//    }
-    
+
     @PostMapping("/assign/{farmerId}")
     public void assignProductsToFarmer(@PathVariable Integer farmerId, @RequestBody List<Integer> productIds) {
         Farmer farmer = farmerRepository.findById(farmerId).orElse(null);

@@ -1,7 +1,5 @@
 package com.farmbazaar.model.entity;
 
-import java.util.List;
-
 import javax.persistence.*;
 
 @Entity
@@ -15,12 +13,17 @@ public class Product {
     private double quantity;
     private double pre_order_quantity;
 
+    @Lob // Indicates that this field will be stored as a large object in the database
+    private byte[] image; // Byte array to store image data
+
     // Other product attributes
 
     @ManyToOne
     @JoinColumn(name = "category_id")
     private Category category;
 
+    
+    // Getters and setters
 	public int getId() {
 		return id;
 	}
@@ -61,6 +64,14 @@ public class Product {
 		this.pre_order_quantity = pre_order_quantity;
 	}
 
+	public byte[] getImage() {
+		return image;
+	}
+
+	public void setImage(byte[] image) {
+		this.image = image;
+	}
+
 	public Category getCategory() {
 		return category;
 	}
@@ -69,7 +80,5 @@ public class Product {
 		this.category = category;
 	}
 
-	
-
-   
+    
 }
