@@ -72,7 +72,7 @@ const Product = () => {
             // Handle error
         }
     };
-      
+          
 
     // Function to handle deleting a product
     const handleDelete = async (id) => {
