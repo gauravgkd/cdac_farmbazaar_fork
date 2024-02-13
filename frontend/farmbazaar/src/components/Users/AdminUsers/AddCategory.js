@@ -17,15 +17,24 @@ const AddCategory = ({ onAdd }) => {
     };
 
     return (
-        <div className="container">
-            <h2>Add New Category</h2>
-            <form onSubmit={handleSubmit}>
-                <div className="mb-3">
-                    <label htmlFor="name" className="form-label">Name</label>
-                    <input type="text" className="form-control" id="name" value={name} onChange={(e) => setName(e.target.value)} required />
+        <div className="container mt-5">
+            <div className="row justify-content-center">
+                <div className="col-md-6">
+                    <div className="card">
+                        <div className="card-header bg-primary text-white">Add New Category</div>
+                        <div className="card-body">
+                            <h2>Add New Category</h2>
+                            <form onSubmit={handleSubmit}>
+                                <div className="mb-3">
+                                    <label htmlFor="name" className="form-label">Name</label>
+                                    <input type="text" className="form-control" id="name" value={name} onChange={(e) => setName(e.target.value)} required />
+                                </div>
+                                <button type="submit" className="btn btn-primary">Add</button>
+                            </form>
+                        </div>
+                    </div>
                 </div>
-                <button type="submit" className="btn btn-primary">Add</button>
-            </form>
+            </div>
         </div>
     );
 };

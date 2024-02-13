@@ -39,35 +39,43 @@ const AddAdminUser = ({ onAdd }) => {
     };
 
     return (
-        <div className="container">
-            <h2>Add New Admin User</h2>
-            <form onSubmit={handleSubmit}>
-                <div className="mb-3">
-                    <label htmlFor="username" className="form-label">Username</label>
-                    <input type="text" className="form-control" id="username" name="username" value={formData.username} onChange={handleChange} required />
+        <div className="container mt-5">
+            <div className="row justify-content-center">
+                <div className="col-md-6">
+                    <div className="card">
+                        <div className="card-header bg-primary text-white">Add New Admin User</div>
+                        <div className="card-body">
+                            <form onSubmit={handleSubmit}>
+                                <div className="mb-3">
+                                    <label htmlFor="username" className="form-label">Username</label>
+                                    <input type="text" className="form-control" id="username" name="username" value={formData.username} onChange={handleChange} required />
+                                </div>
+                                <div className="mb-3">
+                                    <label htmlFor="password" className="form-label">Password</label>
+                                    <input type="password" className="form-control" id="password" name="password" value={formData.password} onChange={handleChange} required />
+                                </div>
+                                <div className="mb-3">
+                                    <label htmlFor="fname" className="form-label">First Name</label>
+                                    <input type="text" className="form-control" id="fname" name="fname" value={formData.fname} onChange={handleChange} required />
+                                </div>
+                                <div className="mb-3">
+                                    <label htmlFor="lname" className="form-label">Last Name</label>
+                                    <input type="text" className="form-control" id="lname" name="lname" value={formData.lname} onChange={handleChange} required />
+                                </div>
+                                <div className="mb-3">
+                                    <label htmlFor="phno" className="form-label">Phone Number</label>
+                                    <input type="text" className="form-control" id="phno" name="phno" value={formData.phno} onChange={handleChange} required />
+                                </div>
+                                <div className="mb-3">
+                                    <label htmlFor="address" className="form-label">Address</label>
+                                    <input type="text" className="form-control" id="address" name="address" value={formData.address} onChange={handleChange} required />
+                                </div>
+                                <button type="submit" className="btn btn-primary">Add</button>
+                            </form>
+                        </div>
+                    </div>
                 </div>
-                <div className="mb-3">
-                    <label htmlFor="password" className="form-label">Password</label>
-                    <input type="password" className="form-control" id="password" name="password" value={formData.password} onChange={handleChange} required />
-                </div>
-                <div className="mb-3">
-                    <label htmlFor="fname" className="form-label">First Name</label>
-                    <input type="text" className="form-control" id="fname" name="fname" value={formData.fname} onChange={handleChange} required />
-                </div>
-                <div className="mb-3">
-                    <label htmlFor="lname" className="form-label">Last Name</label>
-                    <input type="text" className="form-control" id="lname" name="lname" value={formData.lname} onChange={handleChange} required />
-                </div>
-                <div className="mb-3">
-                    <label htmlFor="phno" className="form-label">Phone Number</label>
-                    <input type="text" className="form-control" id="phno" name="phno" value={formData.phno} onChange={handleChange} required />
-                </div>
-                <div className="mb-3">
-                    <label htmlFor="address" className="form-label">Address</label>
-                    <input type="text" className="form-control" id="address" name="address" value={formData.address} onChange={handleChange} required />
-                </div>
-                <button type="submit" className="btn btn-primary">Add</button>
-            </form>
+            </div>
         </div>
     );
 };
