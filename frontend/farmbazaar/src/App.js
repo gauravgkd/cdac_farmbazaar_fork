@@ -9,6 +9,7 @@ import FarmerUsers from './components/Users/AdminUsers/FarmerUsers';
 import AssignProduct from './components/Users/AdminUsers/AssignProduct';
 import Category from './components/Users/AdminUsers/Category';
 import Product from './components/Users/AdminUsers/Product';
+import SignUp from './pages/SignUp';
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
         <Route path="/admin/assign-product-to-farmer" element={<AssignProduct/>} />
         <Route path="/admin/categories" element={<Category/>} />
         <Route path="/admin/products" element={<Product/>} />
+        <Route path="/signup" element={<SignUp/>} />
       </Routes>
     </BrowserRouter>
     </>

@@ -5,7 +5,7 @@ import javax.persistence.*;
 import com.farmbazaar.enums.Role;
 
 @MappedSuperclass
-public abstract class AbstractUser {
+public class AbstractUser {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")

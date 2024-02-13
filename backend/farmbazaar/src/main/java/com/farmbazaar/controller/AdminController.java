@@ -1,10 +1,13 @@
 package com.farmbazaar.controller;
 
+import com.farmbazaar.dto.UserRequestDTO;
 import com.farmbazaar.model.entity.*;
 import com.farmbazaar.model.repository.*;
 import com.farmbazaar.service.ProductService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
@@ -309,5 +312,77 @@ public class AdminController {
         }
     }
 
+    // creating user based on role (signup)
+    @PostMapping("/create-user")
+    public ResponseEntity<?> createUser(@RequestBody UserRequestDTO userRequestDTO) {
+        try {
+            // Convert DTO to AbstractUser object
+            AbstractUser user = userRequestDTO.toUser(); 
+
+            // Handle user creation based on role
+            switch (user.getRole()) {
+                case ADMIN:
+                    // Create an instance of Admin
+                    Admin admin = new Admin();
+                    // Set common fields
+                    admin.setUsername(user.getUsername());
+                    admin.setPassword(user.getPassword());
+                    admin.setFname(user.getFname());
+                    admin.setLname(user.getLname());
+                    admin.setPhno(user.getPhno());
+                    admin.setAddress(user.getAddress());
+                    admin.setRole(user.getRole());
+                    // Save Admin entity
+                    adminRepository.save(admin);
+                    return ResponseEntity.ok(admin);
+                case FARMER:
+                    // Create an instance of Farmer
+                    Farmer farmer = new Farmer();
+                    // Set common fields
+                    farmer.setUsername(user.getUsername());
+                    farmer.setPassword(user.getPassword());
+                    farmer.setFname(user.getFname());
+                    farmer.setLname(user.getLname());
+                    farmer.setPhno(user.getPhno());
+                    farmer.setAddress(user.getAddress());
+                    farmer.setRole(user.getRole());
+                    // Save Farmer entity
+                    farmerRepository.save(farmer);
+                    return ResponseEntity.ok(farmer);
+                case DELIVERY_PARTNER:
+                    // Create an instance of DeliveryPartner
+                    DeliveryPartner deliveryPartner = new DeliveryPartner();
+                    // Set common fields
+                    deliveryPartner.setUsername(user.getUsername());
+                    deliveryPartner.setPassword(user.getPassword());
+                    deliveryPartner.setFname(user.getFname());
+                    deliveryPartner.setLname(user.getLname());
+                    deliveryPartner.setPhno(user.getPhno());
+                    deliveryPartner.setAddress(user.getAddress());
+                    deliveryPartner.setRole(user.getRole());
+                    // Save DeliveryPartner entity
+                    deliveryPartnerRepository.save(deliveryPartner);
+                    return ResponseEntity.ok(deliveryPartner);
+                case USER:
+                    // Create an instance of Customer
+                    Customer customer = new Customer();
+                    // Set common fields
+                    customer.setUsername(user.getUsername());
+                    customer.setPassword(user.getPassword());
+                    customer.setFname(user.getFname());
+                    customer.setLname(user.getLname());
+                    customer.setPhno(user.getPhno());
+                    customer.setAddress(user.getAddress());
+                    customer.setRole(user.getRole());
+                    // Save Customer entity
+                    customerRepository.save(customer);
+                    return ResponseEntity.ok(customer);
+                default:
+                    return ResponseEntity.badRequest().body("Invalid role. Please select a valid role.");
+            }
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error creating user.");
+        }
+    }
 
 }
