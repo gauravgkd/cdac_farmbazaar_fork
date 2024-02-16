@@ -2,7 +2,7 @@
 <section name="Workbench">
 	<section name="MavenProjectImportWizardPage">
 		<list key="rootDirectory">
-			<item value="D:\CDAC\Project\cdac_farmbazaar\backend\farmbazaar"/>
+			<item value="D:\cdac_farmbazaar\backend\farmbazaar"/>
 		</list>
 		<list key="projectNameTemplate">
 			<item value="[artifactId]"/>

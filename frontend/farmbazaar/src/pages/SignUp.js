@@ -167,7 +167,7 @@ export default function SignUp() {
                     <MenuItem value="ADMIN">Admin</MenuItem>
                     <MenuItem value="FARMER">Farmer</MenuItem>
                     <MenuItem value="DELIVERY_PARTNER">Delivery Partner</MenuItem>
-                    <MenuItem value="USER">User</MenuItem>
+                    <MenuItem value="CUSTOMER">Customer</MenuItem>
                   </Select>
                 </FormControl>
               </Grid>

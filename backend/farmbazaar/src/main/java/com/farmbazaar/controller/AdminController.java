@@ -1,17 +1,19 @@
 package com.farmbazaar.controller;
-
+import com.farmbazaar.dto.UserDetailsDTO;
 import com.farmbazaar.dto.UserRequestDTO;
+import com.farmbazaar.enums.Role;
 import com.farmbazaar.model.entity.*;
 import com.farmbazaar.model.repository.*;
 import com.farmbazaar.service.ProductService;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
+
 
 @RestController
 @RequestMapping("/admin")
@@ -43,6 +45,7 @@ public class AdminController {
 
     @PostMapping("/admin-users")
     public Admin createAdminUser(@RequestBody Admin user) {
+    	user.setRole(Role.ADMIN);
         return adminRepository.save(user);
     }
 
@@ -81,6 +84,7 @@ public class AdminController {
 
     @PostMapping("/farmer-users")
     public Farmer createFarmerUser(@RequestBody Farmer user) {
+    	user.setRole(Role.FARMER);
         return farmerRepository.save(user);
     }
 
@@ -118,6 +122,7 @@ public class AdminController {
 
     @PostMapping("/delivery-partner-users")
     public DeliveryPartner createDeliveryPartnerUser(@RequestBody DeliveryPartner user) {
+    	user.setRole(Role.DELIVERY_PARTNER);
         return deliveryPartnerRepository.save(user);
     }
 
@@ -156,6 +161,7 @@ public class AdminController {
 
     @PostMapping("/customer-users")
     public Customer createCustomerUser(@RequestBody Customer user) {
+    	user.setRole(Role.CUSTOMER);
         return customerRepository.save(user);
     }
 
@@ -363,7 +369,7 @@ public class AdminController {
                     // Save DeliveryPartner entity
                     deliveryPartnerRepository.save(deliveryPartner);
                     return ResponseEntity.ok(deliveryPartner);
-                case USER:
+                case CUSTOMER:
                     // Create an instance of Customer
                     Customer customer = new Customer();
                     // Set common fields
@@ -385,4 +391,47 @@ public class AdminController {
         }
     }
 
+    // Method to get user details by ID for all user types
+    @GetMapping("/users/{id}")
+    public ResponseEntity<List<UserDetailsDTO>> getUserById(@PathVariable int id) {
+        List<UserDetailsDTO> userDetailsList = new ArrayList<>();
+
+        adminRepository.findById(id).ifPresent(admin -> {
+            UserDetailsDTO userDetails = new UserDetailsDTO();
+            userDetails.setId(admin.getId());
+            userDetails.setUsername(admin.getUsername());
+            userDetails.setRole(Role.ADMIN.toString());
+            userDetailsList.add(userDetails);
+        });
+
+        farmerRepository.findById(id).ifPresent(farmer -> {
+            UserDetailsDTO userDetails = new UserDetailsDTO();
+            userDetails.setId(farmer.getId());
+            userDetails.setUsername(farmer.getUsername());
+            userDetails.setRole(Role.FARMER.toString());
+            userDetailsList.add(userDetails);
+        });
+
+        deliveryPartnerRepository.findById(id).ifPresent(deliveryPartner -> {
+            UserDetailsDTO userDetails = new UserDetailsDTO();
+            userDetails.setId(deliveryPartner.getId());
+            userDetails.setUsername(deliveryPartner.getUsername());
+            userDetails.setRole(Role.DELIVERY_PARTNER.toString());
+            userDetailsList.add(userDetails);
+        });
+
+        customerRepository.findById(id).ifPresent(customer -> {
+            UserDetailsDTO userDetails = new UserDetailsDTO();
+            userDetails.setId(customer.getId());
+            userDetails.setUsername(customer.getUsername());
+            userDetails.setRole(Role.CUSTOMER.toString());
+            userDetailsList.add(userDetails);
+        });
+
+        if (userDetailsList.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        } else {
+            return ResponseEntity.ok(userDetailsList);
+        }
+    }
 }

@@ -10,7 +10,7 @@ public class UserRequestDTO {
     private String lname;
     private String phno;
     private String address;
-    private Role role; // Assuming Role is an enum representing user roles
+    private Role role; 
 
     // Getters and setters
     // Constructors

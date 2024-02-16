@@ -4,5 +4,5 @@ import com.farmbazaar.model.entity.Customer;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface CustomerRepository extends JpaRepository<Customer, Integer> {
-    // Add custom query methods if needed
+	Customer findByUsername(String username);
 }

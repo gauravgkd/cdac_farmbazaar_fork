@@ -10,6 +10,7 @@ import AssignProduct from './components/Users/AdminUsers/AssignProduct';
 import Category from './components/Users/AdminUsers/Category';
 import Product from './components/Users/AdminUsers/Product';
 import SignUp from './pages/SignUp';
+import SignIn from './pages/SignIn';
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
         <Route path="/admin/categories" element={<Category/>} />
         <Route path="/admin/products" element={<Product/>} />
         <Route path="/signup" element={<SignUp/>} />
+        <Route path="/signin" element={<SignIn/>} />
       </Routes>
     </BrowserRouter>
     </>
