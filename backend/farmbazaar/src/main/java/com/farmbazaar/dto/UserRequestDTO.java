@@ -1,3 +1,9 @@
+/*
+Author: Shubham Samarth
+Date: February 14, 2024
+Description: This class represents a Data Transfer Object (DTO) for user creation requests, containing user details such as username, password, first name, last name, phone number, address, and role.
+*/
+
 package com.farmbazaar.dto;
 
 import com.farmbazaar.enums.Role;
@@ -12,9 +18,6 @@ public class UserRequestDTO {
     private String address;
     private Role role; 
 
-    // Getters and setters
-    // Constructors
-
     public AbstractUser toUser() {
         // Convert DTO to AbstractUser object
         AbstractUser user = new AbstractUser(); // You may need to make AbstractUser non-abstract or provide a concrete implementation
@@ -28,59 +31,60 @@ public class UserRequestDTO {
         return user;
     }
 
-	public String getUsername() {
-		return username;
-	}
+    // Getters and setters
+    public String getUsername() {
+        return username;
+    }
 
-	public void setUsername(String username) {
-		this.username = username;
-	}
+    public void setUsername(String username) {
+        this.username = username;
+    }
 
-	public String getPassword() {
-		return password;
-	}
+    public String getPassword() {
+        return password;
+    }
 
-	public void setPassword(String password) {
-		this.password = password;
-	}
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
-	public String getFname() {
-		return fname;
-	}
+    public String getFname() {
+        return fname;
+    }
 
-	public void setFname(String fname) {
-		this.fname = fname;
-	}
+    public void setFname(String fname) {
+        this.fname = fname;
+    }
 
-	public String getLname() {
-		return lname;
-	}
+    public String getLname() {
+        return lname;
+    }
 
-	public void setLname(String lname) {
-		this.lname = lname;
-	}
+    public void setLname(String lname) {
+        this.lname = lname;
+    }
 
-	public String getPhno() {
-		return phno;
-	}
+    public String getPhno() {
+        return phno;
+    }
 
-	public void setPhno(String phno) {
-		this.phno = phno;
-	}
+    public void setPhno(String phno) {
+        this.phno = phno;
+    }
 
-	public String getAddress() {
-		return address;
-	}
+    public String getAddress() {
+        return address;
+    }
 
-	public void setAddress(String address) {
-		this.address = address;
-	}
+    public void setAddress(String address) {
+        this.address = address;
+    }
 
-	public Role getRole() {
-		return role;
-	}
+    public Role getRole() {
+        return role;
+    }
 
-	public void setRole(Role role) {
-		this.role = role;
-	}
+    public void setRole(Role role) {
+        this.role = role;
+    }
 }

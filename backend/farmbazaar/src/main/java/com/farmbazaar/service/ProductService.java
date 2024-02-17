@@ -1,3 +1,10 @@
+/*
+Author: Shubham Samarth
+Date: February 14, 2024
+Description: This class allows for the creation of new products by providing necessary parameters such as name, price, quantity, category ID, and an optional image file
+Last Modified: February 16, 2024
+*/
+
 package com.farmbazaar.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

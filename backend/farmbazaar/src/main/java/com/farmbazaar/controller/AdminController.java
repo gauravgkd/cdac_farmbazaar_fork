@@ -1,4 +1,11 @@
+/*
+Author: Shubham Samarth
+Date: February 14, 2024
+Description: This class defines REST endpoints for performing CRUD operations related to various user roles (Admin, Farmer, Delivery Partner, Customer), categories, products, and user creation. It also includes methods for assigning products to farmers and retrieving user details by ID for all user types.
+*/
+
 package com.farmbazaar.controller;
+
 import com.farmbazaar.dto.UserDetailsDTO;
 import com.farmbazaar.dto.UserRequestDTO;
 import com.farmbazaar.enums.Role;
@@ -13,7 +20,6 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
 
 @RestController
 @RequestMapping("/admin")
@@ -225,27 +231,7 @@ public class AdminController {
     }
 
     // CRUD operations for products
-//    @PostMapping("/products")
-//    public Product createProduct(@RequestParam("imageFile") MultipartFile imageFile, @RequestParam("name") String name, @RequestParam("price") double price, @RequestParam("quantity") double quantity, @RequestParam("pre_order_quantity") double preOrderQuantity) {
-//        try {
-//            // Convert MultipartFile to byte array and save the image data
-//            byte[] imageData = imageFile.getBytes();
-//            // Create a new Product object with image data
-//            Product product = new Product();
-//            product.setImage(imageData);
-//            product.setName(name);
-//            product.setPrice(price);
-//            product.setQuantity(quantity);
-//            product.setPre_order_quantity(preOrderQuantity);
-//            // Save the product to the database
-//            return productRepository.save(product);
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//            // Handle error
-//            return null;
-//        }
-//    }
-    
+
     @PostMapping("/products")
     public Product createProduct(@RequestParam("name") String name,
                                  @RequestParam("price") double price,

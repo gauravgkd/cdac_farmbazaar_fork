@@ -87,8 +87,3 @@ const Customer = () => {
 
 export default Customer;
 
-/*
-Author: Shubham Samarth
-Date: February 18, 2024
-Description: This component displays products for the customer.
-*/

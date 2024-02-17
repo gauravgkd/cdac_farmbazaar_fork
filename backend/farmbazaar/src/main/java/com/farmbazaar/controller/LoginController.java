@@ -1,5 +1,10 @@
-package com.farmbazaar.controller;
+/*
+Author: Shubham Samarth
+Date: February 16, 2024
+Description: This class defines REST endpoints for user authentication, allowing users to log in to the system.
+*/
 
+package com.farmbazaar.controller;
 import com.farmbazaar.enums.Role;
 import com.farmbazaar.model.entity.AbstractUser;
 import com.farmbazaar.model.repository.AdminRepository;
@@ -13,7 +18,6 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.http.ResponseEntity;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:3000")

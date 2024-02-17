@@ -14,9 +14,3 @@ const updateProductStock = (farmerId, productId, quantity) => {
 };
 
 export { getFarmerById, getProductsByFarmerId, updateProductStock };
-
-/*
-Author: Shubham Samarth
-Date: February 16, 2024
-Description: This component provides mappings to the controller at backend.
-*/

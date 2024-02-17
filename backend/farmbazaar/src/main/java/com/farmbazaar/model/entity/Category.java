@@ -1,10 +1,13 @@
+/*
+Author: Shubham Samarth
+Date: February 15, 2024
+Description: This class represents a category entity in the FarmBazaar application. It contains information about different categories of products. Each category may have multiple products associated with it.
+*/
+
 package com.farmbazaar.model.entity;
 
 import javax.persistence.*;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
-
-import javax.persistence.*;
 import java.util.List;
 
 @Entity
@@ -19,29 +22,29 @@ public class Category {
     @JsonIgnore
     private List<Product> products;
 
-	public int getId() {
-		return id;
-	}
+    // Getters and setters
 
-	public void setId(int id) {
-		this.id = id;
-	}
+    public int getId() {
+        return id;
+    }
 
-	public String getName() {
-		return name;
-	}
+    public void setId(int id) {
+        this.id = id;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public List<Product> getProducts() {
-		return products;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public void setProducts(List<Product> products) {
-		this.products = products;
-	}
+    public List<Product> getProducts() {
+        return products;
+    }
 
-   
+    public void setProducts(List<Product> products) {
+        this.products = products;
+    }
 }

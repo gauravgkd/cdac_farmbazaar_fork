@@ -9,8 +9,3 @@ const getAllProducts = () => {
 
 export { getAllProducts };
 
-/*
-Author: Shubham Samarth
-Date: February 18, 2024
-Description: This component provides mappings to the controller at backend.
-*/

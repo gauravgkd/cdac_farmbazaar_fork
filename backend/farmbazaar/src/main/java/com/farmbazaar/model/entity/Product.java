@@ -1,3 +1,10 @@
+/*
+Author: Shubham Samarth
+Date: February 14, 2024
+Description: This class represents a product entity in the FarmBazaar application. It contains properties such as id, name, price, quantity, pre-order quantity, image, and category. The image data is stored as a byte array and can be encoded to Base64 for transmission. Additionally, it includes methods for encoding image data to Base64.
+Last Modified: February 18, 2024
+*/
+
 package com.farmbazaar.model.entity;
 
 import javax.persistence.*;
@@ -24,69 +31,70 @@ public class Product {
     @JoinColumn(name = "category_id")
     private Category category;
 
+    // Default constructor
     public Product() {
-        // Default constructor
     }
     
     // Getters and setters
-	public int getId() {
-		return id;
-	}
+    
+    public int getId() {
+        return id;
+    }
 
-	public void setId(int id) {
-		this.id = id;
-	}
+    public void setId(int id) {
+        this.id = id;
+    }
 
-	public String getName() {
-		return name;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public double getPrice() {
-		return price;
-	}
+    public double getPrice() {
+        return price;
+    }
 
-	public void setPrice(double price) {
-		this.price = price;
-	}
+    public void setPrice(double price) {
+        this.price = price;
+    }
 
-	public double getQuantity() {
-		return quantity;
-	}
+    public double getQuantity() {
+        return quantity;
+    }
 
-	public void setQuantity(double quantity) {
-		this.quantity = quantity;
-		this.pre_order_quantity = (int) (quantity * 0.3); // Calculate pre_order_quantity
-	}
+    public void setQuantity(double quantity) {
+        this.quantity = quantity;
+        this.pre_order_quantity = (int) (quantity * 0.3); // Calculate pre_order_quantity
+    }
 
-	public double getPre_order_quantity() {
-		return pre_order_quantity;
-	}
+    public double getPre_order_quantity() {
+        return pre_order_quantity;
+    }
 
-	public void setPre_order_quantity(double pre_order_quantity) {
-		this.pre_order_quantity = pre_order_quantity;
-	}
+    public void setPre_order_quantity(double pre_order_quantity) {
+        this.pre_order_quantity = pre_order_quantity;
+    }
 
-	public byte[] getImage() {
-		return image;
-	}
+    public byte[] getImage() {
+        return image;
+    }
 
-	public void setImage(byte[] image) {
-		this.image = image;
-	}
+    public void setImage(byte[] image) {
+        this.image = image;
+    }
 
-	public Category getCategory() {
-		return category;
-	}
+    public Category getCategory() {
+        return category;
+    }
 
-	public void setCategory(Category category) {
-		this.category = category;
-	}
+    public void setCategory(Category category) {
+        this.category = category;
+    }
 
-	public String getImageBase64() {
+    public String getImageBase64() {
         return imageBase64;
     }
 
@@ -99,5 +107,4 @@ public class Product {
             this.imageBase64 = Base64.getEncoder().encodeToString(image);
         }
     }
-    
 }

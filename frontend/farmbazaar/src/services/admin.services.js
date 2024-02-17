@@ -144,8 +144,3 @@ export {
   getProductsByFarmerId
 };
 
-/*
-Author: Shubham Samarth
-Date: February 14, 2024
-Description: This component provides mappings to the controller at backend.
-*/

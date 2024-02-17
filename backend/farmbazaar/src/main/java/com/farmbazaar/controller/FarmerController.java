@@ -1,3 +1,9 @@
+/*
+Author: Shubham Samarth
+Date: February 17, 2024
+Description: This class defines REST endpoints for farmer-specific operations, such as retrieving farmer information, getting products associated with a farmer, and updating product stock.
+*/
+
 package com.farmbazaar.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;

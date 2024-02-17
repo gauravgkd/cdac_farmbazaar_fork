@@ -8,8 +8,3 @@ export default axios.create({
   },
 });
 
-/*
-Author: Shubham Samarth
-Date: February 14, 2024
-Description: This component tells that at which port backend is running.
-*/

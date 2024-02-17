@@ -1,3 +1,9 @@
+/*
+Author: Shubham Samarth
+Date: February 14, 2024
+Description: This class represents an abstract user entity in the FarmBazaar application. It serves as a base class for different types of users such as admin, farmer, customer, and delivery partner.
+*/
+
 package com.farmbazaar.model.entity;
 
 import javax.persistence.*;
@@ -36,85 +42,84 @@ public class AbstractUser {
     @Column(name = "is_active")
     private boolean isActive;
 
-	public int getId() {
-		return id;
-	}
+    // Getters and setters
 
-	public void setId(int id) {
-		this.id = id;
-	}
+    public int getId() {
+        return id;
+    }
 
-	public String getUsername() {
-		return username;
-	}
+    public void setId(int id) {
+        this.id = id;
+    }
 
-	public void setUsername(String username) {
-		this.username = username;
-	}
+    public String getUsername() {
+        return username;
+    }
 
-	public String getPassword() {
-		return password;
-	}
+    public void setUsername(String username) {
+        this.username = username;
+    }
 
-	public void setPassword(String password) {
-		this.password = password;
-	}
+    public String getPassword() {
+        return password;
+    }
 
-	public String getFname() {
-		return fname;
-	}
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
-	public void setFname(String fname) {
-		this.fname = fname;
-	}
+    public String getFname() {
+        return fname;
+    }
 
-	public String getLname() {
-		return lname;
-	}
+    public void setFname(String fname) {
+        this.fname = fname;
+    }
 
-	public void setLname(String lname) {
-		this.lname = lname;
-	}
+    public String getLname() {
+        return lname;
+    }
 
-	public String getPhno() {
-		return phno;
-	}
+    public void setLname(String lname) {
+        this.lname = lname;
+    }
 
-	public void setPhno(String phno) {
-		this.phno = phno;
-	}
+    public String getPhno() {
+        return phno;
+    }
 
-	public String getAddress() {
-		return address;
-	}
+    public void setPhno(String phno) {
+        this.phno = phno;
+    }
 
-	public void setAddress(String address) {
-		this.address = address;
-	}
+    public String getAddress() {
+        return address;
+    }
 
-	public Role getRole() {
-		return role;
-	}
+    public void setAddress(String address) {
+        this.address = address;
+    }
 
-	public void setRole(Role role) {
-		this.role = role;
-	}
+    public Role getRole() {
+        return role;
+    }
 
-	public boolean isActive() {
-		return isActive;
-	}
+    public void setRole(Role role) {
+        this.role = role;
+    }
 
-	public void setActive(boolean isActive) {
-		this.isActive = isActive;
-	}
+    public boolean isActive() {
+        return isActive;
+    }
 
-	@Override
-	public String toString() {
-		return "AbstractUser [id=" + id + ", username=" + username + ", password=" + password + ", fname=" + fname
-				+ ", lname=" + lname + ", phno=" + phno + ", address=" + address + ", role=" + role + ", isActive="
-				+ isActive + "]";
-	}
+    public void setActive(boolean isActive) {
+        this.isActive = isActive;
+    }
 
-    
-    
+    @Override
+    public String toString() {
+        return "AbstractUser [id=" + id + ", username=" + username + ", password=" + password + ", fname=" + fname
+                + ", lname=" + lname + ", phno=" + phno + ", address=" + address + ", role=" + role + ", isActive="
+                + isActive + "]";
+    }
 }

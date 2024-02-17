@@ -1,9 +1,13 @@
+/*
+Author: Shubham Samarth
+Date: February 14, 2024
+Description: This class represents a farmer entity in the FarmBazaar application. It extends the AbstractUser class and inherits common user properties such as username, password, name, phone number, address, role, and active status. Additionally, it contains specific attributes related to farmers such as the list of products they offer and their total profit.
+*/
+
 package com.farmbazaar.model.entity;
 
 import javax.persistence.*;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import java.util.List;
 
 @Entity
@@ -20,15 +24,17 @@ public class Farmer extends AbstractUser {
     @Column(name = "total_profit")
     private double totalProfit;
     
-	public List<Product> getProducts() {
-		return products;
-	}
+    // Getters and setters
 
-	public void setProducts(List<Product> products) {
-		this.products = products;
-	}
+    public List<Product> getProducts() {
+        return products;
+    }
 
-	public double getTotalProfit() {
+    public void setProducts(List<Product> products) {
+        this.products = products;
+    }
+
+    public double getTotalProfit() {
         return totalProfit;
     }
 
@@ -36,15 +42,15 @@ public class Farmer extends AbstractUser {
         this.totalProfit = totalProfit;
     }
 
-	@Override
-	public String toString() {
-		return "Farmer [products=" + products + ", totalProfit=" + totalProfit + ", getProducts()=" + getProducts()
-				+ ", getTotalProfit()=" + getTotalProfit() + ", getId()=" + getId() + ", getUsername()=" + getUsername()
-				+ ", getPassword()=" + getPassword() + ", getFname()=" + getFname() + ", getLname()=" + getLname()
-				+ ", getPhno()=" + getPhno() + ", getAddress()=" + getAddress() + ", getRole()=" + getRole()
-				+ ", isActive()=" + isActive() + ", toString()=" + super.toString() + ", getClass()=" + getClass()
-				+ ", hashCode()=" + hashCode() + "]";
-	}
-	
+    // toString method for debugging and logging
     
+    @Override
+    public String toString() {
+        return "Farmer [products=" + products + ", totalProfit=" + totalProfit + ", getProducts()=" + getProducts()
+                + ", getTotalProfit()=" + getTotalProfit() + ", getId()=" + getId() + ", getUsername()=" + getUsername()
+                + ", getPassword()=" + getPassword() + ", getFname()=" + getFname() + ", getLname()=" + getLname()
+                + ", getPhno()=" + getPhno() + ", getAddress()=" + getAddress() + ", getRole()=" + getRole()
+                + ", isActive()=" + isActive() + ", toString()=" + super.toString() + ", getClass()=" + getClass()
+                + ", hashCode()=" + hashCode() + "]";
+    } 
 }

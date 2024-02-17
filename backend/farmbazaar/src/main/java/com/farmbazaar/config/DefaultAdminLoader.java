@@ -1,3 +1,9 @@
+/*
+Author: Shubham Samarth
+Date: February 14, 2024
+Description: This class is responsible for loading a default admin user into the application upon startup, if one does not already exist.
+*/
+
 package com.farmbazaar.config;
 
 import com.farmbazaar.model.entity.Admin;
@@ -13,6 +19,11 @@ public class DefaultAdminLoader implements CommandLineRunner {
     @Autowired
     private AdminRepository adminRepository;
 
+    /**
+     * Method to run upon application startup.
+     * @param args Command line arguments.
+     * @throws Exception If an error occurs during the execution.
+     */
     @Override
     public void run(String... args) throws Exception {
         // Check if admin already exists

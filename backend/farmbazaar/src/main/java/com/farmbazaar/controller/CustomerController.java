@@ -1,3 +1,9 @@
+/*
+Author: Shubham Samarth
+Date: February 18, 2024
+Description: This class defines REST endpoints for customer-specific operations, such as retrieving all products available for purchase.
+*/
+
 package com.farmbazaar.controller;
 
 import java.util.List;
@@ -16,12 +22,12 @@ import com.farmbazaar.model.repository.ProductRepository;
 @CrossOrigin(origins = "http://localhost:3000")
 public class CustomerController {
 
-	@Autowired
+    @Autowired
     private ProductRepository productRepository;
-	
-	@GetMapping("/products")
+    
+    @GetMapping("/products")
     public List<Product> getAllProducts() {
-		List<Product> products = productRepository.findAll();
+        List<Product> products = productRepository.findAll();
         // Encode image data to Base64 before sending
         products.forEach(Product::encodeImageDataToBase64);
         return products;
