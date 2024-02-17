@@ -52,7 +52,7 @@ export default function SignIn() {
         window.location.href = '/';
         break;
       case 'FARMER':
-        window.location.href = '/admin/farmer-users';
+        window.location.href = '/farmer-dashboard';
         break;
       case 'CUSTOMER':
         window.location.href = '/customer-dashboard';

@@ -22,6 +22,9 @@ public class Product {
     @JoinColumn(name = "category_id")
     private Category category;
 
+    public Product() {
+        // Default constructor
+    }
     
     // Getters and setters
 	public int getId() {
@@ -54,6 +57,7 @@ public class Product {
 
 	public void setQuantity(double quantity) {
 		this.quantity = quantity;
+		this.pre_order_quantity = (int) (quantity * 0.3); // Calculate pre_order_quantity
 	}
 
 	public double getPre_order_quantity() {

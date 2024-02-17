@@ -17,6 +17,9 @@ public class Farmer extends AbstractUser {
     @JsonIgnore // Exclude products from serialization to prevent recursion
     private List<Product> products;
 
+    @Column(name = "total_profit")
+    private double totalProfit;
+    
 	public List<Product> getProducts() {
 		return products;
 	}
@@ -25,14 +28,23 @@ public class Farmer extends AbstractUser {
 		this.products = products;
 	}
 
+	public double getTotalProfit() {
+        return totalProfit;
+    }
+
+    public void setTotalProfit(double totalProfit) {
+        this.totalProfit = totalProfit;
+    }
+
 	@Override
 	public String toString() {
-		return "Farmer [products=" + products + ", getId()=" + getId() + ", getUsername()=" + getUsername()
+		return "Farmer [products=" + products + ", totalProfit=" + totalProfit + ", getProducts()=" + getProducts()
+				+ ", getTotalProfit()=" + getTotalProfit() + ", getId()=" + getId() + ", getUsername()=" + getUsername()
 				+ ", getPassword()=" + getPassword() + ", getFname()=" + getFname() + ", getLname()=" + getLname()
 				+ ", getPhno()=" + getPhno() + ", getAddress()=" + getAddress() + ", getRole()=" + getRole()
 				+ ", isActive()=" + isActive() + ", toString()=" + super.toString() + ", getClass()=" + getClass()
 				+ ", hashCode()=" + hashCode() + "]";
 	}
-
+	
     
 }

@@ -11,6 +11,8 @@ import Category from './components/Users/AdminUsers/Category';
 import Product from './components/Users/AdminUsers/Product';
 import SignUp from './pages/SignUp';
 import SignIn from './pages/SignIn';
+import Farmer from './components/Users/FarmerUsers/Farmer';
+import FarmerStocks from './components/Users/FarmerUsers/FarmerStocks';
 
 function App() {
   return (
@@ -25,6 +27,8 @@ function App() {
         <Route path="/admin/products" element={<Product/>} />
         <Route path="/signup" element={<SignUp/>} />
         <Route path="/signin" element={<SignIn/>} />
+        <Route path="/farmer-dashboard" element={<Farmer/>} />
+        <Route path="/farmer/farmer-stocks" element={<FarmerStocks/>} />
       </Routes>
     </BrowserRouter>
     </>
