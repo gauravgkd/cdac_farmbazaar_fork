@@ -1,17 +1,24 @@
 import React, { useState, useEffect } from 'react';
-import { getAllProducts } from '../../../services/customer.services';
+import { getAllProducts, addToCart } from '../../../services/customer.services';
 
 const Customer = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [selectedCategory, setSelectedCategory] = useState('All');
+  const [productQuantities, setProductQuantities] = useState({}); // State to track quantities for each product
 
   useEffect(() => {
     const fetchProducts = async () => {
       try {
         const response = await getAllProducts();
         setProducts(response.data);
+        // Initialize product quantities with default values
+        const initialQuantities = response.data.reduce((acc, product) => {
+          acc[product.id] = 1; // Default quantity is 1
+          return acc;
+        }, {});
+        setProductQuantities(initialQuantities);
       } catch (error) {
         console.error('Error fetching products:', error);
         setError('Error fetching products. Please try again later.');
@@ -28,6 +35,26 @@ const Customer = () => {
 
   // Filter products based on selected category
   const filteredProducts = selectedCategory === 'All' ? products : products.filter(product => product.category.name === selectedCategory);
+
+  const handleAddToCart = async (productId) => {
+    try {
+      const customerId = JSON.parse(sessionStorage.getItem('userData')).id; // Get customer ID from session
+      const quantity = productQuantities[productId]; // Get quantity for the selected product
+      const response = await addToCart(customerId, { productId, quantity });
+      console.log(response.data); // Log the response from the server
+      // You can add further logic here such as showing a success message
+    } catch (error) {
+      console.error('Error adding product to cart:', error);
+      // You can handle errors here, such as displaying an error message to the user
+    }
+  };
+
+  const handleQuantityChange = (productId, newQuantity) => {
+    setProductQuantities(prevQuantities => ({
+      ...prevQuantities,
+      [productId]: newQuantity,
+    }));
+  };
 
   return (
     <div className="container">
@@ -71,10 +98,20 @@ const Customer = () => {
                     Pre-order Quantity: {product.pre_order_quantity}
                   </p>
                   <div className="form-group">
-                    <input type="number" className="form-control" placeholder="Enter quantity" />
+                    <input 
+                      type="number" 
+                      className="form-control" 
+                      placeholder="Enter quantity" 
+                      value={productQuantities[product.id]}
+                      onChange={(e) => handleQuantityChange(product.id, parseInt(e.target.value))}
+                    />
                   </div>
-                  <button className="btn btn-success mr-2">Pre-order</button>
-                  <button className="btn btn-primary">Add to Cart</button>
+                  <button 
+                    className="btn btn-primary"
+                    onClick={() => handleAddToCart(product.id)}
+                  >
+                    Add to Cart
+                  </button>
                 </div>
               </div>
             </div>
@@ -86,4 +123,3 @@ const Customer = () => {
 };
 
 export default Customer;
-
