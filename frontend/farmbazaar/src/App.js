@@ -13,6 +13,7 @@ import SignUp from './pages/SignUp';
 import SignIn from './pages/SignIn';
 import Farmer from './components/Users/FarmerUsers/Farmer';
 import FarmerStocks from './components/Users/FarmerUsers/FarmerStocks';
+import Customer from './components/Users/CustomerUsers/Customer';
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
         <Route path="/signin" element={<SignIn/>} />
         <Route path="/farmer-dashboard" element={<Farmer/>} />
         <Route path="/farmer/farmer-stocks" element={<FarmerStocks/>} />
+        <Route path="/customer" element={<Customer/>} />
       </Routes>
     </BrowserRouter>
     </>

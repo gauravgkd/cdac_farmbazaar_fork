@@ -134,3 +134,9 @@ export default function SignIn() {
     </ThemeProvider>
   );
 }
+
+/*
+Author: Shubham Samarth
+Date: February 18, 2024
+Description: This component handles SignIn functionality for all users.
+*/

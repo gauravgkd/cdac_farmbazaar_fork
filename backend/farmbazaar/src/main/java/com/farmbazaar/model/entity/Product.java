@@ -1,6 +1,7 @@
 package com.farmbazaar.model.entity;
 
 import javax.persistence.*;
+import java.util.Base64;
 
 @Entity
 public class Product {
@@ -15,8 +16,9 @@ public class Product {
 
     @Lob // Indicates that this field will be stored as a large object in the database
     private byte[] image; // Byte array to store image data
-
-    // Other product attributes
+    
+    @Transient
+    private String imageBase64; // Attribute to store Base64-encoded image data
 
     @ManyToOne
     @JoinColumn(name = "category_id")
@@ -84,5 +86,18 @@ public class Product {
 		this.category = category;
 	}
 
+	public String getImageBase64() {
+        return imageBase64;
+    }
+
+    public void setImageBase64(String imageBase64) {
+        this.imageBase64 = imageBase64;
+    }
+
+    public void encodeImageDataToBase64() {
+        if (image != null) {
+            this.imageBase64 = Base64.getEncoder().encodeToString(image);
+        }
+    }
     
 }

@@ -200,3 +200,9 @@ export default function SignUp() {
     </ThemeProvider>
   );
 }
+
+/*
+Author: Shubham Samarth
+Date: February 18, 2024
+Description: This component SignUp the user to the system.
+*/
