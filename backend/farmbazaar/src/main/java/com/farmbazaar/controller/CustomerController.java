@@ -12,11 +12,14 @@ import com.farmbazaar.model.repository.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/customer")
@@ -34,6 +37,9 @@ public class CustomerController {
     
     @Autowired
     private OrderRepository orderRepository;
+    
+    @Autowired
+    private CartItemRepository cartItemRepository; 
 
     @GetMapping("/products")
     public List<Product> getAllProducts() {
@@ -79,7 +85,46 @@ public class CustomerController {
         return ResponseEntity.ok("Product added to cart successfully");
     }
 
-    
-    // Other methods for updating, deleting, and managing carts and orders
-    
+//    @GetMapping("/cart/{customerId}/items")
+//    public ResponseEntity<List<CartItem>> getCartItems(@PathVariable int customerId) {
+//        Optional<Customer> optionalCustomer = customerRepository.findById(customerId);
+//        if (!optionalCustomer.isPresent()) {
+//            return ResponseEntity.notFound().build();
+//        }
+//        Customer customer = optionalCustomer.get();
+//        
+//        Cart cart = customer.getCart();
+//        if (cart == null) {
+//            return ResponseEntity.ok(new ArrayList<>()); // Return an empty list if cart is null
+//        }
+//        
+//        List<CartItem> cartItems = cart.getCartItems();
+//        
+//        return ResponseEntity.ok(cartItems);
+//    }  
+
+    @GetMapping("/cart/{customerId}/items")
+    public ResponseEntity<List<CartItem>> getCartItems(@PathVariable int customerId) {
+        Optional<Customer> optionalCustomer = customerRepository.findById(customerId);
+        if (!optionalCustomer.isPresent()) {
+            return ResponseEntity.notFound().build();
+        }
+        Customer customer = optionalCustomer.get();
+        
+        Cart cart = customer.getCart();
+        if (cart == null) {
+            return ResponseEntity.ok(new ArrayList<>()); // Return an empty list if cart is null
+        }
+        
+        List<CartItem> cartItems = cart.getCartItems();
+        
+        // Encode image data to Base64 for each product
+        List<CartItem> cartItemsWithBase64Images = cartItems.stream()
+                .peek(item -> item.getProduct().encodeImageDataToBase64()) // Ensure that imageBase64 is populated
+                .collect(Collectors.toList());
+
+        return ResponseEntity.ok()
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(cartItemsWithBase64Images);
+    }
 }

@@ -8,4 +8,8 @@ const addToCart = (customerId, cartItemRequest) => {
   return http.post(`/customer/cart/${customerId}/add`, cartItemRequest);
 };
 
-export { getAllProducts, addToCart };
+const getCartItems = (customerId) => {
+  return http.get(`/customer/cart/${customerId}/items`);
+};
+
+export { getAllProducts, addToCart, getCartItems};

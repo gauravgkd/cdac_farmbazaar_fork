@@ -7,16 +7,21 @@ Description: This class represents the CartItem entity in the FarmBazaar applica
 package com.farmbazaar.model.entity;
 
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
+import java.io.Serializable;
 import java.util.Date;
 
 @Entity
-public class CartItem {
+public class CartItem implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @ManyToOne
     @JoinColumn(name = "cart_id")
+    @JsonBackReference
     private Cart cart;
 
     @ManyToOne

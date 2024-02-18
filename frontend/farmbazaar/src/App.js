@@ -14,6 +14,7 @@ import SignIn from './pages/SignIn';
 import Farmer from './components/Users/FarmerUsers/Farmer';
 import FarmerStocks from './components/Users/FarmerUsers/FarmerStocks';
 import Customer from './components/Users/CustomerUsers/Customer';
+import Cart from './components/Users/CustomerUsers/Cart';
 
 function App() {
   return (
@@ -31,6 +32,7 @@ function App() {
         <Route path="/farmer-dashboard" element={<Farmer/>} />
         <Route path="/farmer/farmer-stocks" element={<FarmerStocks/>} />
         <Route path="/customer-dashboard" element={<Customer/>} />
+        <Route path="/customer-cart" element={<Cart/>} />
       </Routes>
     </BrowserRouter>
     </>
