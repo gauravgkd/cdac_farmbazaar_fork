@@ -8,6 +8,7 @@ package com.farmbazaar.model.entity;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import java.io.Serializable;
@@ -24,9 +25,10 @@ public class Cart implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "customer_id")
+    @JsonIgnore // Prevent Jackson from serializing this attribute
     private Customer customer;
 
-    @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL, orphanRemoval = true) // Add orphanRemoval
     @JsonManagedReference
     private List<CartItem> cartItems;
 
@@ -100,6 +102,11 @@ public class Cart implements Serializable {
             totalPrice += item.getPrice() * item.getQuantity();
         }
         this.totalPrice = totalPrice;
+    }
+    
+    public void clearCart() {
+        this.cartItems.clear(); // Clear the cart items list
+        this.totalPrice = 0.0; // Reset the total price
     }
     
     @PreUpdate

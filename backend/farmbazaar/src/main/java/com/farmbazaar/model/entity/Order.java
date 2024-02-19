@@ -11,6 +11,7 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
+@Table(name = "orders")
 public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,9 +33,9 @@ public class Order {
     private String orderStatus;
     private String deliveryStatus;
     private String deliveryAddress;
-
-    @Column(name = "updated_at")
-    private Date updatedAt;
+    private Date placedDate;
+    private Date expectedDeliveryDate; 
+    private Date deliveryDate; 
     
     // Getters and setters
     
@@ -102,13 +103,28 @@ public class Order {
 		this.deliveryAddress = deliveryAddress;
 	}
 
-	public Date getUpdatedAt() {
-		return updatedAt;
+	public Date getPlacedDate() {
+		return placedDate;
 	}
 
-	public void setUpdatedAt(Date updatedAt) {
-		this.updatedAt = updatedAt;
+	public void setPlacedDate(Date placedDate) {
+		this.placedDate = placedDate;
 	}
 
-    
+	public Date getExpectedDeliveryDate() {
+		return expectedDeliveryDate;
+	}
+
+	public void setExpectedDeliveryDate(Date expectedDeliveryDate) {
+		this.expectedDeliveryDate = expectedDeliveryDate;
+	}
+
+	public Date getDeliveryDate() {
+		return deliveryDate;
+	}
+
+	public void setDeliveryDate(Date deliveryDate) {
+		this.deliveryDate = deliveryDate;
+	}    
+	
 }

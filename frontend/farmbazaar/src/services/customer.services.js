@@ -1,3 +1,4 @@
+// customer.services.js
 import http from './http-common';
 
 const getAllProducts = () => {
@@ -12,4 +13,8 @@ const getCartItems = (customerId) => {
   return http.get(`/customer/cart/${customerId}/items`);
 };
 
-export { getAllProducts, addToCart, getCartItems};
+const checkoutOrder = (customerId, checkoutRequest) => {
+  return http.post(`/customer/cart/${customerId}/checkout`, checkoutRequest);
+};
+
+export { getAllProducts, addToCart, getCartItems, checkoutOrder};
