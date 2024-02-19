@@ -1,38 +1,32 @@
 import React, { useState, useEffect } from 'react';
 import { getCartItems, checkoutOrder } from '../../../services/customer.services';
+import Payment from './Payment';
 
 const Cart = () => {
   const [cartItems, setCartItems] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
   const [orderType, setOrderType] = useState('regular');
   const [deliveryDate, setDeliveryDate] = useState('');
-  const [deliveryAddress, setDeliveryAddress] = useState(''); // State for delivery address
-  const [checkedOut, setCheckedOut] = useState(false);
-  const [userData, setUserData] = useState(null); // State to store user data retrieved from session
+  const [deliveryAddress, setDeliveryAddress] = useState('');
+  const [userData, setUserData] = useState(null);
+  const [showPayment, setShowPayment] = useState(false);
 
   useEffect(() => {
-    // Retrieve user data from session storage
     const userData = JSON.parse(sessionStorage.getItem('userData'));
     setUserData(userData);
-    
-    // Fetch cart items using customer ID
+
     if (userData) {
       getCartItems(userData.id)
         .then(response => {
           setCartItems(response.data);
-          setLoading(false);
         })
         .catch(error => {
-          setError(error);
-          setLoading(false);
+          console.error(error);
         });
     }
   }, []);
 
   useEffect(() => {
-    // Calculate total price when cart items change
     const totalPrice = cartItems.reduce((acc, item) => acc + (item.price * item.quantity), 0);
     setTotalPrice(totalPrice);
   }, [cartItems]);
@@ -55,56 +49,38 @@ const Cart = () => {
       const checkoutRequest = {
         orderType: orderType,
         deliveryDate: deliveryDate,
-        deliveryAddress: deliveryAddress || userData.address // Use entered address or pre-populated address from session
+        deliveryAddress: deliveryAddress || userData.address
       };
 
       checkoutOrder(userData.id, checkoutRequest)
         .then(response => {
-          setCheckedOut(true);
-          console.log(response.data); // Log the response from the server
+          console.log(response.data);
         })
         .catch(error => {
-          console.error(error); // Log any errors
+          console.error(error);
         });
     }
   };
-
-  // Group cart items by product ID
-  const groupedCartItems = cartItems.reduce((acc, item) => {
-    const existingItem = acc.find(group => group.product.id === item.product.id);
-    if (existingItem) {
-      existingItem.quantity += item.quantity;
-      existingItem.totalPrice += item.price * item.quantity;
-    } else {
-      acc.push({
-        product: item.product,
-        quantity: item.quantity,
-        totalPrice: item.price * item.quantity
-      });
-    }
-    return acc;
-  }, []);
 
   return (
     <section className="h-100 gradient-custom">
       <div className="container py-5">
         <div className="row row-cols-1 row-cols-md-4 g-4">
-          {groupedCartItems.map(group => (
-            <div className="col" key={group.product.id}>
+          {cartItems.map((item, index) => (
+            <div className="col" key={index}>
               <div className="card h-100" style={{ maxWidth: '250px' }}>
-                {/* Display the image if available */}
-                {group.product.imageBase64 && (
+                {item.product.imageBase64 && (
                   <img
-                    src={`data:image/jpeg;base64,${group.product.imageBase64}`}
+                    src={`data:image/jpeg;base64,${item.product.imageBase64}`}
                     className="card-img-top"
-                    alt={group.product.name}
-                    style={{ height: '200px', objectFit: 'cover' }} // Set fixed height and object fit
+                    alt={item.product.name}
+                    style={{ height: '200px', objectFit: 'cover' }}
                   />
                 )}
                 <div className="card-body">
-                  <h5 className="card-title">{group.product.name}</h5>
-                  <p className="card-text text-success">Price: ${group.product.price}</p>
-                  <p className="card-text">Quantity: {group.quantity}</p>
+                  <h5 className="card-title">{item.product.name}</h5>
+                  <p className="card-text text-success">Price: ${item.product.price}</p>
+                  <p className="card-text">Quantity: {item.quantity}</p>
                 </div>
               </div>
             </div>
@@ -130,8 +106,8 @@ const Cart = () => {
                   className="form-control"
                   value={deliveryDate}
                   onChange={handleDeliveryDateChange}
-                  min={(new Date()).toISOString().split('T')[0]} // Set the minimum date to the current date
-                  max={(new Date(Date.now() + 5 * 24 * 60 * 60 * 1000)).toISOString().split('T')[0]} // Set the maximum date to 5 days from the current date
+                  min={(new Date()).toISOString().split('T')[0]}
+                  max={(new Date(Date.now() + 5 * 24 * 60 * 60 * 1000)).toISOString().split('T')[0]}
                 />
               </div>
             )}
@@ -143,12 +119,15 @@ const Cart = () => {
                 className="form-control"
                 value={deliveryAddress}
                 onChange={handleDeliveryAddressChange}
-                placeholder={userData ? userData.address : 'Enter delivery address'} // Display pre-populated address or placeholder
+                placeholder={userData ? userData.address : 'Enter delivery address'}
               />
             </div>
-            <button type="button" className="btn btn-primary btn-lg btn-block" onClick={handleCheckout}>
+            <button type="button" className="btn btn-primary btn-lg btn-block" onClick={() => setShowPayment(true)}>
               Go to Checkout
             </button>
+            {showPayment && (
+              <Payment totalPrice={totalPrice} onPayAmount={handleCheckout} />
+            )}
           </div>
         </div>
       </div>

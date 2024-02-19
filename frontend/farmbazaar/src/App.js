@@ -15,6 +15,7 @@ import Farmer from './components/Users/FarmerUsers/Farmer';
 import FarmerStocks from './components/Users/FarmerUsers/FarmerStocks';
 import Customer from './components/Users/CustomerUsers/Customer';
 import Cart from './components/Users/CustomerUsers/Cart';
+import Payment from './components/Users/CustomerUsers/Payment';
 
 function App() {
   return (
@@ -33,6 +34,7 @@ function App() {
         <Route path="/farmer/farmer-stocks" element={<FarmerStocks/>} />
         <Route path="/customer-dashboard" element={<Customer/>} />
         <Route path="/customer-cart" element={<Cart/>} />
+        <Route path="/payment/:totalAmount" element={<Payment />} />
       </Routes>
     </BrowserRouter>
     </>
