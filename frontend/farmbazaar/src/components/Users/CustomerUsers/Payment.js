@@ -1,3 +1,4 @@
+// Payment.js
 import React, { useState } from 'react';
 
 const Payment = ({ totalPrice, onPayAmount }) => {
@@ -8,57 +9,28 @@ const Payment = ({ totalPrice, onPayAmount }) => {
   };
 
   return (
-    <section style={{ backgroundColor: '#eee' }}>
-      <div className="container py-5">
-        <div className="row d-flex justify-content-center">
-          <div className="col-md-8 col-lg-6 col-xl-4">
-            <div className="card rounded-3">
-              <div className="card-body mx-1 my-2">
-                <h3>Payment Method:</h3>
-                <div className="pb-3">
-                  <input
-                    type="radio"
-                    id="creditCard"
-                    name="paymentMethod"
-                    value="creditCard"
-                    checked={paymentMethod === 'creditCard'}
-                    onChange={handlePaymentMethodChange}
-                  />
-                  <label htmlFor="creditCard">Credit Card</label>
-                </div>
-                <div className="pb-3">
-                  <input
-                    type="radio"
-                    id="paypal"
-                    name="paymentMethod"
-                    value="paypal"
-                    checked={paymentMethod === 'paypal'}
-                    onChange={handlePaymentMethodChange}
-                  />
-                  <label htmlFor="paypal">PayPal</label>
-                </div>
-                <div>
-                  <input
-                    type="radio"
-                    id="bankTransfer"
-                    name="paymentMethod"
-                    value="bankTransfer"
-                    checked={paymentMethod === 'bankTransfer'}
-                    onChange={handlePaymentMethodChange}
-                  />
-                  <label htmlFor="bankTransfer">Bank Transfer</label>
-                </div>
-                <div className="d-flex justify-content-between align-items-center pb-1">
-                  <button type="button" className="btn btn-primary btn-lg" onClick={onPayAmount}>
-                    Pay Amount: ${totalPrice}
-                  </button>
-                </div>
-              </div>
+    <div className="container">
+      <div className="row">
+        <div className="col">
+          <h4>Payment Method</h4>
+          <div className="mb-3">
+            <div className="form-check">
+              <input type="radio" id="creditCard" name="paymentMethod" value="creditCard" className="form-check-input" checked={paymentMethod === 'creditCard'} onChange={handlePaymentMethodChange} />
+              <label htmlFor="creditCard" className="form-check-label">Credit Card</label>
+            </div>
+            <div className="form-check">
+              <input type="radio" id="paypal" name="paymentMethod" value="paypal" className="form-check-input" checked={paymentMethod === 'paypal'} onChange={handlePaymentMethodChange} />
+              <label htmlFor="paypal" className="form-check-label">PayPal</label>
+            </div>
+            <div className="form-check">
+              <input type="radio" id="bankTransfer" name="paymentMethod" value="bankTransfer" className="form-check-input" checked={paymentMethod === 'bankTransfer'} onChange={handlePaymentMethodChange} />
+              <label htmlFor="bankTransfer" className="form-check-label">Bank Transfer</label>
             </div>
           </div>
+          <button type="button" className="btn btn-primary" onClick={onPayAmount}>Pay Amount: ${totalPrice}</button>
         </div>
       </div>
-    </section>
+    </div>
   );
 };
 

@@ -43,19 +43,36 @@ const AdminUsers = () => {
     const handleEdit = (id) => {
         setEditingUser(id);
         const userToEdit = adminUsers.find(user => user.id === id);
-        setEditedData(userToEdit);
+        // Set default values for editedData
+        setEditedData({
+            username: userToEdit.username || '',
+            password: userToEdit.password || '',
+            fname: userToEdit.fname || '',
+            lname: userToEdit.lname || '',
+            phno: userToEdit.phno || '',
+            address: userToEdit.address || ''
+        });
     };
+    
 
     const handleSave = async (id) => {
         try {
             await updateAdminUser(id, editedData);
+            // Update the adminUsers state to reflect the changes
+            const updatedUsers = adminUsers.map(user => {
+                if (user.id === id) {
+                    return { ...user, ...editedData };
+                }
+                return user;
+            });
+            setAdminUsers(updatedUsers);
             setEditingUser(null);
-            // You may want to fetch updated user list here if necessary
         } catch (error) {
             console.error('Error updating admin user:', error);
             // Handle error
         }
     };
+    
 
     const handleDelete = async (id) => {
         try {

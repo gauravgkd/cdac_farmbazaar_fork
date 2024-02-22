@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { getCartItems, checkoutOrder } from '../../../services/customer.services';
 import Payment from './Payment';
 
+import './cart.css'; 
+
 const Cart = () => {
   const [cartItems, setCartItems] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
@@ -16,6 +18,9 @@ const Cart = () => {
     setUserData(userData);
 
     if (userData) {
+      // Pre-populate delivery address from session
+      setDeliveryAddress(userData.address);
+
       getCartItems(userData.id)
         .then(response => {
           setCartItems(response.data);
@@ -54,7 +59,9 @@ const Cart = () => {
 
       checkoutOrder(userData.id, checkoutRequest)
         .then(response => {
-          console.log(response.data);
+          alert('Order placed successfully!');
+          // Redirect to customer dashboard
+          window.location.href = '/customer-dashboard'; // Update with your actual customer dashboard route
         })
         .catch(error => {
           console.error(error);
@@ -62,44 +69,53 @@ const Cart = () => {
     }
   };
 
+  // Calculate maximum delivery date for pre-order
+  const maxDeliveryDate = new Date(Date.now() + 5 * 24 * 60 * 60 * 1000).toISOString().split('T')[0];
+
   return (
-    <section className="h-100 gradient-custom">
-      <div className="container py-5">
-        <div className="row row-cols-1 row-cols-md-4 g-4">
+    <div className="container">
+      <div className="row">
+        <div className="col-md-8">
+          <h4>Your Cart</h4>
           {cartItems.map((item, index) => (
-            <div className="col" key={index}>
-              <div className="card h-100" style={{ maxWidth: '250px' }}>
-                {item.product.imageBase64 && (
-                  <img
-                    src={`data:image/jpeg;base64,${item.product.imageBase64}`}
-                    className="card-img-top"
-                    alt={item.product.name}
-                    style={{ height: '200px', objectFit: 'cover' }}
-                  />
-                )}
-                <div className="card-body">
-                  <h5 className="card-title">{item.product.name}</h5>
-                  <p className="card-text text-success">Price: ${item.product.price}</p>
-                  <p className="card-text">Quantity: {item.quantity}</p>
+            <div className="card mb-3" key={index}>
+              <div className="row g-0">
+                <div className="col-md-4">
+                  <div className="product-image-container">
+                    {item.product.imageBase64 && (
+                      <img
+                        src={`data:image/jpeg;base64,${item.product.imageBase64}`}
+                        className="img-fluid"
+                        alt={item.product.name}
+                      />
+                    )}
+                  </div>
+                </div>
+                <div className="col-md-8">
+                  <div className="card-body">
+                    <h5 className="card-title">{item.product.name}</h5>
+                    <p className="card-text">Price: ${item.product.price}</p>
+                    <p className="card-text">Quantity: {item.quantity}</p>
+                  </div>
                 </div>
               </div>
             </div>
           ))}
+          <h5>Total: ${totalPrice}</h5>
         </div>
-        <div className="card">
-          <div className="card-body">
-            <h5 className="card-title">Total Amount</h5>
-            <p className="card-text">Total Price: ${totalPrice}</p>
-            <div className="form-group">
-              <label htmlFor="orderType">Order Type:</label>
-              <select id="orderType" className="form-control" value={orderType} onChange={handleOrderTypeChange}>
+        <div className="col-md-4">
+          <h4>Billing Details</h4>
+          <form>
+            <div className="mb-3">
+              <label htmlFor="orderType" className="form-label">Order Type:</label>
+              <select id="orderType" className="form-select" value={orderType} onChange={handleOrderTypeChange}>
                 <option value="regular">Regular</option>
                 <option value="pre-order">Pre-order</option>
               </select>
             </div>
             {orderType === 'pre-order' && (
-              <div className="form-group">
-                <label htmlFor="deliveryDate">Delivery Date (Max 5 days from today):</label>
+              <div className="mb-3">
+                <label htmlFor="deliveryDate" className="form-label">Delivery Date:</label>
                 <input
                   type="date"
                   id="deliveryDate"
@@ -107,31 +123,26 @@ const Cart = () => {
                   value={deliveryDate}
                   onChange={handleDeliveryDateChange}
                   min={(new Date()).toISOString().split('T')[0]}
-                  max={(new Date(Date.now() + 5 * 24 * 60 * 60 * 1000)).toISOString().split('T')[0]}
+                  max={maxDeliveryDate}
                 />
               </div>
             )}
-            <div className="form-group">
-              <label htmlFor="deliveryAddress">Delivery Address:</label>
+            <div className="mb-3">
+              <label htmlFor="deliveryAddress" className="form-label">Delivery Address:</label>
               <input
                 type="text"
                 id="deliveryAddress"
                 className="form-control"
                 value={deliveryAddress}
                 onChange={handleDeliveryAddressChange}
-                placeholder={userData ? userData.address : 'Enter delivery address'}
               />
             </div>
-            <button type="button" className="btn btn-primary btn-lg btn-block" onClick={() => setShowPayment(true)}>
-              Go to Checkout
-            </button>
-            {showPayment && (
-              <Payment totalPrice={totalPrice} onPayAmount={handleCheckout} />
-            )}
-          </div>
+            <button type="button" className="btn btn-primary" onClick={() => setShowPayment(true)}>Go to Checkout</button>
+          </form>
+          {showPayment && <Payment totalPrice={totalPrice} onPayAmount={handleCheckout} />}
         </div>
       </div>
-    </section>
+    </div>
   );
 };
 

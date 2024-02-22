@@ -1,22 +1,23 @@
 import React, { useState, useEffect } from 'react';
 import { getAllProducts, addToCart } from '../../../services/customer.services';
 import { Link } from 'react-router-dom';
+import NavBarCustomer from '../../NavBars/NavBarCustomer';
 
 const Customer = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [selectedCategory, setSelectedCategory] = useState('All');
-  const [productQuantities, setProductQuantities] = useState({}); // State to track quantities for each product
+  const [productQuantities, setProductQuantities] = useState({});
+  const [showToast, setShowToast] = useState(false); // State to control toast visibility
 
   useEffect(() => {
     const fetchProducts = async () => {
       try {
         const response = await getAllProducts();
         setProducts(response.data);
-        // Initialize product quantities with default values
         const initialQuantities = response.data.reduce((acc, product) => {
-          acc[product.id] = 1; // Default quantity is 1
+          acc[product.id] = 1;
           return acc;
         }, {});
         setProductQuantities(initialQuantities);
@@ -31,22 +32,21 @@ const Customer = () => {
     fetchProducts();
   }, []);
 
-  // Get unique categories from products
   const categories = [...new Set(products.map(product => product.category.name))];
 
-  // Filter products based on selected category
   const filteredProducts = selectedCategory === 'All' ? products : products.filter(product => product.category.name === selectedCategory);
 
   const handleAddToCart = async (productId) => {
     try {
-      const customerId = JSON.parse(sessionStorage.getItem('userData')).id; // Get customer ID from session
-      const quantity = productQuantities[productId]; // Get quantity for the selected product
-      const response = await addToCart(customerId, { productId, quantity });
-      console.log(response.data); // Log the response from the server
-      // You can add further logic here such as showing a success message
+      const customerId = JSON.parse(sessionStorage.getItem('userData')).id;
+      const quantity = productQuantities[productId];
+      await addToCart(customerId, { productId, quantity });
+      setShowToast(true);
+      setTimeout(() => {
+        setShowToast(false);
+      }, 3000);
     } catch (error) {
       console.error('Error adding product to cart:', error);
-      // You can handle errors here, such as displaying an error message to the user
     }
   };
 
@@ -58,10 +58,12 @@ const Customer = () => {
   };
 
   return (
-    <div className="container">
+<>
+<NavBarCustomer />
+<div className="container">
       <div className="row">
         <div className="col-md-12 mb-4">
-        <Link to="/customer-cart" className="btn btn-primary">
+          <Link to="/customer-cart" className="btn btn-primary">
             View Cart
           </Link>
           <div className="form-group">
@@ -80,19 +82,20 @@ const Customer = () => {
           </div>
         </div>
       </div>
-      <div className="row">
+      <div className="row row-cols-1 row-cols-md-2 row-cols-lg-5 g-4">
         {loading ? (
           <div>Loading...</div>
         ) : error ? (
           <div>Error: {error}</div>
         ) : (
           filteredProducts.map(product => (
-            <div key={product.id} className="col-md-4 mb-4">
-              <div className="card" style={{ width: '18rem' }}>
+            <div key={product.id} className="col">
+              <div className="card h-100">
                 <img
                   src={`data:image/jpeg;base64,${product.imageBase64}`}
                   alt={product.name}
-                  style={{ width: '100%', height: '200px', objectFit: 'cover' }}
+                  className="card-img-top"
+                  style={{ height: '200px', objectFit: 'cover' }}
                 />
                 <div className="card-body">
                   <h5 className="card-title">{product.name}</h5>
@@ -101,7 +104,7 @@ const Customer = () => {
                     Quantity: {product.quantity}<br />
                     Pre-order Quantity: {product.pre_order_quantity}
                   </p>
-                  <div className="form-group">
+                  <div className="input-group mb-3">
                     <input 
                       type="number" 
                       className="form-control" 
@@ -109,20 +112,33 @@ const Customer = () => {
                       value={productQuantities[product.id]}
                       onChange={(e) => handleQuantityChange(product.id, parseInt(e.target.value))}
                     />
+                    <button 
+                      className="btn btn-outline-primary"
+                      onClick={() => handleAddToCart(product.id)}
+                    >
+                      Add to Cart
+                    </button>
                   </div>
-                  <button 
-                    className="btn btn-primary"
-                    onClick={() => handleAddToCart(product.id)}
-                  >
-                    Add to Cart
-                  </button>
                 </div>
               </div>
             </div>
           ))
         )}
       </div>
+      {/* Toast Notification */}
+      <div className="position-fixed top-0 end-0 p-3" style={{ zIndex: '1050' }}>
+        <div className={`toast ${showToast ? 'show bg-success text-light' : ''}`} role="alert" aria-live="assertive" aria-atomic="true">
+          <div className="toast-header">
+            <strong className="me-auto">Product Added</strong>
+            <button type="button" className="btn-close" onClick={() => setShowToast(false)}></button>
+          </div>
+          <div className="toast-body">
+            Product has been added to your cart.
+          </div>
+        </div>
+      </div>
     </div>
+</>
   );
 };
 

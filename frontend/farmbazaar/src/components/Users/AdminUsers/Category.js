@@ -35,13 +35,21 @@ const Category = () => {
     const handleSave = async (id) => {
         try {
             await updateCategory(id, editedData);
+            // Update the categories state to reflect the changes
+            const updatedCategories = categories.map(category => {
+                if (category.id === id) {
+                    return { ...category, ...editedData };
+                }
+                return category;
+            });
+            setCategories(updatedCategories);
             setEditingCategory(null);
-            // You may want to fetch updated category list here if necessary
         } catch (error) {
             console.error('Error updating category:', error);
             // Handle error
         }
     };
+    
 
     const handleDelete = async (id) => {
         try {
