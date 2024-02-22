@@ -5,8 +5,8 @@ const getAllOrdersForDeliveryPartner = (deliveryPartnerId) => {
   return http.get(`/delivery-partner/${deliveryPartnerId}/orders`);
 };
 
-const updateDeliveryStatus = (orderId, deliveryStatus) => {
-  return http.put(`/delivery-partner/orders/${orderId}`, deliveryStatus);
-};
+const updateDeliveryStatus = (orderId, deliveryStatus, deliveryDate) => {
+    return http.put(`/delivery-partner/orders/${orderId}`, { deliveryStatus, deliveryDate });
+  };
 
 export { getAllOrdersForDeliveryPartner, updateDeliveryStatus };

@@ -78,6 +78,10 @@ const OrderList = () => {
                   {order.expectedDeliveryDate ? new Date(order.expectedDeliveryDate).toLocaleDateString() : 'Not specified'}
                 </ListGroup.Item>
                 <ListGroup.Item>
+                  <strong>Delivery Date:</strong>{' '}
+                  {order.deliveryDate ? new Date(order.deliveryDate).toLocaleDateString() : 'Not specified'}
+                </ListGroup.Item>
+                <ListGroup.Item>
                   <strong>Delivery Status:</strong>{' '}
                   <Badge bg={getStatusBadgeVariant(order.deliveryStatus)}>
                     {order.deliveryStatus}
@@ -85,8 +89,6 @@ const OrderList = () => {
                 </ListGroup.Item>
               </ListGroup>
             </Card.Body>
-            
-
           </Card>
         ))
       )}

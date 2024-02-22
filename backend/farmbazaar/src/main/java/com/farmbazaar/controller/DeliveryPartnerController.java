@@ -1,6 +1,8 @@
 package com.farmbazaar.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import com.farmbazaar.dto.UpdateDeliveryRequest;
 import com.farmbazaar.model.entity.Order;
 import com.farmbazaar.service.DeliveryPartnerService;
 
@@ -20,9 +22,9 @@ public class DeliveryPartnerController {
         return deliveryPartnerService.getAllOrdersForDeliveryPartner(deliveryPartnerId);
     }
 
-    // Endpoint to update the delivery status of an order
+    // Endpoint to update the delivery status of an order including delivery date
     @PutMapping("/orders/{orderId}")
-    public Order updateDeliveryStatus(@PathVariable int orderId, @RequestBody String deliveryStatus) {
-        return deliveryPartnerService.updateDeliveryStatus(orderId, deliveryStatus);
+    public Order updateDeliveryStatus(@PathVariable int orderId, @RequestBody UpdateDeliveryRequest updateRequest) {
+        return deliveryPartnerService.updateDeliveryStatus(orderId, updateRequest.getDeliveryStatus(), updateRequest.getDeliveryDate());
     }
 }
