@@ -17,6 +17,7 @@ import Customer from './components/Users/CustomerUsers/Customer';
 import Cart from './components/Users/CustomerUsers/Cart';
 import Payment from './components/Users/CustomerUsers/Payment';
 import OrderList from './components/Users/CustomerUsers/OrderList';
+import DeliveryPartner from './components/Users/DeliveryPartnerUsers/DeliveryPartner';
 
 function App() {
   return (
@@ -37,6 +38,7 @@ function App() {
         <Route path="/customer-cart" element={<Cart/>} />
         <Route path="/payment/:totalAmount" element={<Payment />} />
         <Route path="/customer-orders" element={<OrderList/>} />
+        <Route path="/delivery-partner-dashboard" element={<DeliveryPartner/>} />
       </Routes>
     </BrowserRouter>
     </>
