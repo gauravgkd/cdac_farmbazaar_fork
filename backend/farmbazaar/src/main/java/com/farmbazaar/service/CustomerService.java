@@ -12,6 +12,7 @@ import com.farmbazaar.dto.CheckoutRequest;
 import com.farmbazaar.model.entity.Cart;
 import com.farmbazaar.model.entity.CartItem;
 import com.farmbazaar.model.entity.Customer;
+import com.farmbazaar.model.entity.DeliveryPartner;
 import com.farmbazaar.model.entity.Order;
 import com.farmbazaar.model.entity.OrderItem;
 import com.farmbazaar.model.entity.Product;
@@ -23,6 +24,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -45,6 +47,9 @@ public class CustomerService {
 
     @Autowired
     private OrderItemRepository orderItemRepository;
+    
+    @Autowired
+    private DeliveryPartnerRepository deliveryPartnerRepository;
 
     @Autowired
     private CartItemRepository cartItemRepository;
@@ -163,8 +168,24 @@ public class CustomerService {
         // Set placed date
         order.setPlacedDate(new Date());
 
+        // Assign order to a delivery partner
+        DeliveryPartner assignedPartner = assignOrderToDeliveryPartner();
+
+        // If no delivery partner available, set delivery status to "No delivery partner available"
+        if (assignedPartner == null) {
+            order.setDeliveryStatus("No delivery partner available");
+        } else {
+            // Set delivery partner for the order
+            order.setDeliveryPartner(assignedPartner);
+            // Increase the assigned delivery partner's workload
+            assignedPartner.incrementWorkload();
+        }
+
         // Save the order
         orderRepository.save(order);
+        
+        // Set order status
+        order.setOrderStatus("Placed.");
 
         // Create order items from cart items
         for (CartItem cartItem : cart.getCartItems()) {
@@ -182,5 +203,20 @@ public class CustomerService {
         cartRepository.save(cart);
 
         return "Order placed successfully";
+    }
+
+    private DeliveryPartner assignOrderToDeliveryPartner() {
+        // Retrieve all available delivery partners
+        List<DeliveryPartner> availablePartners = deliveryPartnerRepository.findAll();
+
+        // Sort delivery partners based on workload (number of orders)
+        availablePartners.sort(Comparator.comparingInt(DeliveryPartner::getWorkload));
+
+        // Return the least busy delivery partner
+        return availablePartners.isEmpty() ? null : availablePartners.get(0);
+    }
+
+    public List<Order> getOrdersByCustomerId(int customerId) {
+        return orderRepository.findByCustomerId(customerId);
     }
 }

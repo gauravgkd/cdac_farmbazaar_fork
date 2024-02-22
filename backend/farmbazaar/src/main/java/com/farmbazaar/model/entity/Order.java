@@ -7,13 +7,23 @@ Description: This class represents the Order entity in the FarmBazaar applicatio
 package com.farmbazaar.model.entity;
 
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
 @Entity
 @Table(name = "orders")
-public class Order {
-    @Id
+public class Order implements Serializable {
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "order_id")
     private int id;
@@ -23,10 +33,12 @@ public class Order {
     private Customer customer;
 
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
+    @JsonBackReference 
     private List<OrderItem> orderItems;
 
     @ManyToOne
     @JoinColumn(name = "delivery_partner_id")
+    @JsonIgnore
     private DeliveryPartner deliveryPartner;
 
     private double totalAmount;

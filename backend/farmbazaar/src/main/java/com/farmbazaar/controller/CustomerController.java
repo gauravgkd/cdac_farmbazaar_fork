@@ -10,6 +10,7 @@ package com.farmbazaar.controller;
 import com.farmbazaar.dto.CartItemRequest;
 import com.farmbazaar.dto.CheckoutRequest;
 import com.farmbazaar.model.entity.CartItem;
+import com.farmbazaar.model.entity.Order;
 import com.farmbazaar.model.entity.Product;
 import com.farmbazaar.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,5 +61,11 @@ public class CustomerController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
         }
         return ResponseEntity.ok(response);
+    }
+    
+    @GetMapping("/{customerId}/orders")
+    public ResponseEntity<List<Order>> getOrdersByCustomerId(@PathVariable int customerId) {
+        List<Order> orders = customerService.getOrdersByCustomerId(customerId);
+        return ResponseEntity.ok(orders);
     }
 }

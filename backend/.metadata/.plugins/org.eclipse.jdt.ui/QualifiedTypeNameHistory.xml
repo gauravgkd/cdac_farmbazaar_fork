@@ -1,35 +1,38 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
 <fullyQualifiedTypeName name="com.farmbazaar.enums.Role"/>
-<fullyQualifiedTypeName name="com.farmbazaar.dto.UserDetailsDTO"/>
 <fullyQualifiedTypeName name="com.farmbazaar.model.repository.FarmerRepository"/>
 <fullyQualifiedTypeName name="com.farmbazaar.model.repository.ProductRepository"/>
 <fullyQualifiedTypeName name="com.farmbazaar.model.entity.Farmer"/>
 <fullyQualifiedTypeName name="com.farmbazaar.model.entity.Product"/>
 <fullyQualifiedTypeName name="com.farmbazaar.model.entity.Order"/>
 <fullyQualifiedTypeName name="com.farmbazaar.model.entity.CartItem"/>
-<fullyQualifiedTypeName name="com.farmbazaar.model.entity.OrderItem"/>
 <fullyQualifiedTypeName name="com.farmbazaar.model.repository.CustomerRepository"/>
 <fullyQualifiedTypeName name="com.farmbazaar.model.repository.OrderRepository"/>
 <fullyQualifiedTypeName name="com.farmbazaar.model.repository.CartItemRepository"/>
 <fullyQualifiedTypeName name="com.farmbazaar.model.repository.OrderItemRepository"/>
 <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.PostMapping"/>
-<fullyQualifiedTypeName name="org.springframework.http.ResponseEntity"/>
 <fullyQualifiedTypeName name="com.farmbazaar.model.entity.Customer"/>
 <fullyQualifiedTypeName name="com.farmbazaar.dto.CartItemRequest"/>
 <fullyQualifiedTypeName name="com.farmbazaar.model.repository.CartRepository"/>
 <fullyQualifiedTypeName name="com.farmbazaar.model.entity.Cart"/>
 <fullyQualifiedTypeName name="java.util.Optional"/>
-<fullyQualifiedTypeName name="java.util.ArrayList"/>
 <fullyQualifiedTypeName name="java.io.Serializable"/>
 <fullyQualifiedTypeName name="com.fasterxml.jackson.annotation.JsonBackReference"/>
 <fullyQualifiedTypeName name="java.util.stream.Collectors"/>
 <fullyQualifiedTypeName name="org.springframework.http.MediaType"/>
 <fullyQualifiedTypeName name="com.fasterxml.jackson.annotation.JsonManagedReference"/>
 <fullyQualifiedTypeName name="com.fasterxml.jackson.annotation.JsonIgnore"/>
-<fullyQualifiedTypeName name="java.text.SimpleDateFormat"/>
-<fullyQualifiedTypeName name="java.text.ParseException"/>
 <fullyQualifiedTypeName name="com.farmbazaar.dto.CheckoutRequest"/>
 <fullyQualifiedTypeName name="java.util.Date"/>
 <fullyQualifiedTypeName name="java.util.Calendar"/>
+<fullyQualifiedTypeName name="org.springframework.http.ResponseEntity"/>
+<fullyQualifiedTypeName name="com.farmbazaar.dto.UserRequestDTO"/>
+<fullyQualifiedTypeName name="com.farmbazaar.dto.UserDetailsDTO"/>
+<fullyQualifiedTypeName name="org.springframework.http.HttpStatus"/>
+<fullyQualifiedTypeName name="org.springframework.web.bind.annotation.PathVariable"/>
+<fullyQualifiedTypeName name="java.util.ArrayList"/>
+<fullyQualifiedTypeName name="com.farmbazaar.model.entity.OrderItem"/>
+<fullyQualifiedTypeName name="java.text.SimpleDateFormat"/>
+<fullyQualifiedTypeName name="java.text.ParseException"/>
 </qualifiedTypeNameHistroy>

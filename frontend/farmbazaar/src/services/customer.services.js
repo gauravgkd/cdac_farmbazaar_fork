@@ -17,4 +17,8 @@ const checkoutOrder = (customerId, checkoutRequest) => {
   return http.post(`/customer/cart/${customerId}/checkout`, checkoutRequest);
 };
 
-export { getAllProducts, addToCart, getCartItems, checkoutOrder};
+const getOrdersByCustomerId = (customerId) => {
+  return http.get(`/customer/${customerId}/orders`);
+};
+
+export { getAllProducts, addToCart, getCartItems, checkoutOrder, getOrdersByCustomerId};
