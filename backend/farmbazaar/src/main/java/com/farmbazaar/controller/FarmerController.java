@@ -2,6 +2,7 @@
 Author: Shubham Samarth
 Date: February 17, 2024
 Description: This class defines REST endpoints for farmer-specific operations, such as retrieving farmer information, getting products associated with a farmer, and updating product stock.
+Last Modified: February 22, 2024
 */
 
 package com.farmbazaar.controller;
@@ -12,8 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import com.farmbazaar.model.entity.Farmer;
 import com.farmbazaar.model.entity.Product;
-import com.farmbazaar.model.repository.FarmerRepository;
-import com.farmbazaar.model.repository.ProductRepository;
+import com.farmbazaar.service.FarmerService;
 
 import java.util.List;
 
@@ -23,14 +23,11 @@ import java.util.List;
 public class FarmerController {
 
     @Autowired
-    private FarmerRepository farmerRepository;
-
-    @Autowired
-    private ProductRepository productRepository;
+    private FarmerService farmerService;
 
     @GetMapping("/{farmerId}")
     public ResponseEntity<Farmer> getFarmerById(@PathVariable int farmerId) {
-        Farmer farmer = farmerRepository.findById(farmerId).orElse(null);
+        Farmer farmer = farmerService.getFarmerById(farmerId);
         if (farmer != null) {
             return ResponseEntity.ok(farmer);
         } else {
@@ -40,9 +37,8 @@ public class FarmerController {
 
     @GetMapping("/{farmerId}/products")
     public ResponseEntity<List<Product>> getProductsByFarmerId(@PathVariable int farmerId) {
-        Farmer farmer = farmerRepository.findById(farmerId).orElse(null);
-        if (farmer != null) {
-            List<Product> products = farmer.getProducts();
+        List<Product> products = farmerService.getProductsByFarmerId(farmerId);
+        if (!products.isEmpty()) {
             return ResponseEntity.ok(products);
         } else {
             return ResponseEntity.notFound().build();
@@ -51,33 +47,10 @@ public class FarmerController {
 
     @PutMapping("/{farmerId}/products/{productId}")
     public ResponseEntity<String> updateProductStock(@PathVariable int farmerId, @PathVariable int productId, @RequestParam double quantity) {
-        Farmer farmer = farmerRepository.findById(farmerId).orElse(null);
-        if (farmer != null) {
-            Product product = farmer.getProducts().stream()
-                    .filter(p -> p.getId() == productId)
-                    .findFirst()
-                    .orElse(null);
-            if (product != null) {
-                double oldQuantity = product.getQuantity();
-                double newQuantity = oldQuantity + quantity;
-                product.setQuantity(newQuantity);
-                productRepository.save(product);
-
-                // Calculate profit earned from selling the product
-                double profitEarned = quantity * product.getPrice() * 0.3;
-
-                // Update total profit for the farmer
-                double oldTotalProfit = farmer.getTotalProfit();
-                double newTotalProfit = oldTotalProfit + profitEarned;
-                farmer.setTotalProfit(newTotalProfit);
-                farmerRepository.save(farmer);
-
-                return ResponseEntity.ok("Product stock updated successfully. Profit earned: $" + profitEarned);
-            } else {
-                return ResponseEntity.notFound().build();
-            }
-        } else {
+        String response = farmerService.updateProductStock(farmerId, productId, quantity);
+        if (response.startsWith("Error")) {
             return ResponseEntity.notFound().build();
         }
+        return ResponseEntity.ok(response);
     }
 }

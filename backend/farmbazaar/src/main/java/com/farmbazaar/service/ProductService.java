@@ -6,21 +6,23 @@ Last Modified: February 16, 2024
 */
 
 package com.farmbazaar.service;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import com.farmbazaar.model.entity.Product;
-import com.farmbazaar.model.entity.Category; // Import Category entity
+import com.farmbazaar.model.entity.Category;
 import com.farmbazaar.model.repository.ProductRepository;
-import com.farmbazaar.model.repository.CategoryRepository; // Import CategoryRepository
+import com.farmbazaar.model.repository.CategoryRepository;
 
 import java.io.IOException;
+import java.util.List;
 
 @Service
 public class ProductService {
 
     private final ProductRepository productRepository;
-    private final CategoryRepository categoryRepository; // Inject CategoryRepository
+    private final CategoryRepository categoryRepository;
 
     @Autowired
     public ProductService(ProductRepository productRepository, CategoryRepository categoryRepository) {
@@ -36,28 +38,48 @@ public class ProductService {
         product.setQuantity(quantity);
         product.setPre_order_quantity(preOrderQuantity);
 
-        // Fetch the category based on the provided category ID
-        Category category = fetchCategoryById(categoryId); // Use a method to fetch category by ID
-
-        // Set the fetched category to the product
+        Category category = fetchCategoryById(categoryId);
         product.setCategory(category);
-
-        // Set other product attributes
 
         try {
             if (imageFile != null) {
                 product.setImage(imageFile.getBytes());
             }
         } catch (IOException e) {
-            e.printStackTrace(); // Handle exception
+            e.printStackTrace();
         }
 
         return productRepository.save(product);
     }
 
-    // Method to fetch category by ID
+    public Product updateProduct(int id, MultipartFile imageFile, String name, double price, double quantity, double preOrderQuantity) {
+        Product product = productRepository.findById(id).orElse(null);
+        if (product != null) {
+            try {
+                if (imageFile != null) {
+                    product.setImage(imageFile.getBytes());
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            product.setName(name);
+            product.setPrice(price);
+            product.setQuantity(quantity);
+            product.setPre_order_quantity(preOrderQuantity);
+            return productRepository.save(product);
+        }
+        return null;
+    }
+
+    public void deleteProduct(int id) {
+        productRepository.deleteById(id);
+    }
+
+    public List<Product> getAllProducts() {
+        return productRepository.findAll();
+    }
+
     private Category fetchCategoryById(int categoryId) {
-        // Implement logic to fetch category by ID from database
         return categoryRepository.findById(categoryId).orElse(null);
     }
 }
