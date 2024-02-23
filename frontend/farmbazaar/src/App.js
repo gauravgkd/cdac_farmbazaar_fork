@@ -18,6 +18,8 @@ import Cart from './components/Users/CustomerUsers/Cart';
 import Payment from './components/Users/CustomerUsers/Payment';
 import OrderList from './components/Users/CustomerUsers/OrderList';
 import DeliveryPartner from './components/Users/DeliveryPartnerUsers/DeliveryPartner';
+import CustomerUsers from './components/Users/AdminUsers/CustomerUsers';
+import DeliveryPartnerUsers from './components/Users/AdminUsers/DeliveryPartnerUsers';
 
 function App() {
   return (
@@ -30,6 +32,8 @@ function App() {
         <Route path="/admin/assign-product-to-farmer" element={<AssignProduct/>} />
         <Route path="/admin/categories" element={<Category/>} />
         <Route path="/admin/products" element={<Product/>} />
+        <Route path="/admin/customer-users" element={<CustomerUsers/>} />
+        <Route path="/admin/delivery-partner-users" element={<DeliveryPartnerUsers/>} />
         <Route path="/signup" element={<SignUp/>} />
         <Route path="/signin" element={<SignIn/>} />
         <Route path="/farmer-dashboard" element={<Farmer/>} />

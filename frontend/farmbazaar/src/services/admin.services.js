@@ -1,6 +1,7 @@
 // admin.services.js
 import http from './http-common';
 
+// Admin Users CRUD operations
 const createAdminUser = (data) => {
   return http.post('/admin/admin-users', data);
 };
@@ -17,6 +18,7 @@ const getAllAdminUsers = () => {
   return http.get('/admin/admin-users');
 };
 
+// Farmer Users CRUD operations
 const createFarmerUser = (data) => {
   return http.post('/admin/farmer-users', data);
 };
@@ -33,6 +35,7 @@ const getAllFarmerUsers = () => {
   return http.get('/admin/farmer-users');
 };
 
+// Delivery Partner Users CRUD operations
 const createDeliveryPartnerUser = (data) => {
   return http.post('/admin/delivery-partner-users', data);
 };
@@ -49,6 +52,7 @@ const getAllDeliveryPartnerUsers = () => {
   return http.get('/admin/delivery-partner-users');
 };
 
+// Customer Users CRUD operations
 const createCustomerUser = (data) => {
   return http.post('/admin/customer-users', data);
 };
@@ -65,6 +69,7 @@ const getAllCustomerUsers = () => {
   return http.get('/admin/customer-users');
 };
 
+// Category CRUD operations
 const createCategory = (data) => {
   return http.post('/admin/categories', data);
 };
@@ -81,6 +86,7 @@ const getAllCategories = () => {
   return http.get('/admin/categories');
 };
 
+// Product CRUD operations
 const createProduct = (data) => {
   return http.post('/admin/products', data, {
       headers: {
@@ -88,7 +94,6 @@ const createProduct = (data) => {
       }
   });
 };
-
 
 const updateProduct = (id, formData) => {
   return http.put(`/admin/products/${id}`, formData, {
@@ -98,7 +103,6 @@ const updateProduct = (id, formData) => {
   });
 };
 
-
 const deleteProduct = (id) => {
   return http.delete(`/admin/products/${id}`);
 };
@@ -107,6 +111,7 @@ const getAllProducts = () => {
   return http.get('/admin/products');
 };
 
+// Additional operations
 const assignProductsToFarmer = (farmerId, productIds) => {
   return http.post(`/admin/assign/${farmerId}`, productIds);
 };
@@ -143,4 +148,3 @@ export {
   assignProductsToFarmer,
   getProductsByFarmerId
 };
-
