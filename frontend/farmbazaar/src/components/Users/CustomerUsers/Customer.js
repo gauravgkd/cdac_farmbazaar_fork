@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { getAllProducts, addToCart } from '../../../services/customer.services';
 import { Link } from 'react-router-dom';
 import NavBarCustomer from '../../NavBars/NavBarCustomer';
+import Footer from '../../NavBars/Footer';
 
 const Customer = () => {
   const [products, setProducts] = useState([]);
@@ -138,6 +139,7 @@ const Customer = () => {
         </div>
       </div>
     </div>
+    < Footer />
 </>
   );
 };
