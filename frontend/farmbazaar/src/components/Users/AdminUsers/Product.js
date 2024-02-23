@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { getAllProducts, updateProduct, deleteProduct } from '../../../services/admin.services';
 import AddProduct from './AddProduct';
 import axios from 'axios';
+import NavBarAdmin from '../../NavBars/NavBarAdmin';
+import Footer from '../../NavBars/Footer';
 
 const Product = () => {
     const [products, setProducts] = useState([]);
@@ -111,6 +113,8 @@ const Product = () => {
 
     // Render the product table
     return (
+        <>
+        <NavBarAdmin />
         <div className="container-lg">
             <div className="table-responsive">
                 <div className="table-wrapper">
@@ -190,6 +194,8 @@ const Product = () => {
                 </div>
             </div>
         </div>
+       <Footer />
+        </>
     );
 };
 

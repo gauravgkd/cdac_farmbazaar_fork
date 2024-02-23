@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { getAllAdminUsers, updateAdminUser, deleteAdminUser } from '../../../services/admin.services';
 import AddAdminUser from './AddAdminUser';
+import NavBarAdmin from '../../NavBars/NavBarAdmin';
+import Footer from '../../NavBars/Footer';
 
 const AdminUsers = () => {
     const [adminUsers, setAdminUsers] = useState([]);
@@ -101,6 +103,8 @@ const AdminUsers = () => {
     }
 
     return (
+        <>
+        <NavBarAdmin />
         <div className="container-lg">
             <div className="table-responsive">
                 <div className="table-wrapper">
@@ -190,6 +194,8 @@ const AdminUsers = () => {
                 </div>
             </div>
         </div>
+        <Footer />
+        </>
     );
 };
 

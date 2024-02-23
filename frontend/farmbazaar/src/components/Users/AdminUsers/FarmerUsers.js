@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { getAllFarmerUsers, updateFarmerUser, deleteFarmerUser, createFarmerUser } from '../../../services/admin.services';
 import AddFarmerUser from './AddFarmerUser';
+import NavBarAdmin from '../../NavBars/NavBarAdmin';
+import Footer from '../../NavBars/Footer';
 
 const FarmerUsers = () => {
     const [farmerUsers, setFarmerUsers] = useState([]);
@@ -111,6 +113,8 @@ const FarmerUsers = () => {
     }
 
     return (
+        <>
+        <NavBarAdmin/>
         <div className="container-lg">
             {alertMessage && (
                 <div className="alert alert-success" role="alert">
@@ -205,6 +209,8 @@ const FarmerUsers = () => {
                 </div>
             </div>
         </div>
+        <Footer />
+        </>
     );
 };
 

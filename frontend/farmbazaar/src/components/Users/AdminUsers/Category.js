@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { getAllCategories, updateCategory, deleteCategory } from '../../../services/admin.services';
 import AddCategory from './AddCategory';
+import NavBarAdmin from '../../NavBars/NavBarAdmin';
+import Footer from '../../NavBars/Footer';
 
 const Category = () => {
     const [categories, setCategories] = useState([]);
@@ -102,6 +104,8 @@ const Category = () => {
     }
 
     return (
+        <>
+        <NavBarAdmin />
         <div className="container-lg">
             <div className="table-responsive">
                 <div className="table-wrapper">
@@ -144,6 +148,8 @@ const Category = () => {
                 </div>
             </div>
         </div>
+        < Footer />
+        </>
     );
 };
 

@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { getAllFarmerUsers, getAllProducts, assignProductsToFarmer, getProductsByFarmerId } from '../../../services/admin.services';
+import NavBarAdmin from '../../NavBars/NavBarAdmin';
+import Footer from '../../NavBars/Footer';
 
 const AssignProducts = () => {
     const [farmers, setFarmers] = useState([]);
@@ -67,6 +69,8 @@ const AssignProducts = () => {
     };
 
     return (
+        <>
+        <NavBarAdmin />
         <div className="container mt-5">
             <h2 className="mb-4">Assign Products to Farmer</h2>
             <div className="row">
@@ -94,6 +98,8 @@ const AssignProducts = () => {
                 </div>
             </div>
         </div>
+        <Footer />
+        </>
     );
 };
 

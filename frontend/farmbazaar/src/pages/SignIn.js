@@ -33,8 +33,19 @@ export default function SignIn() {
 
       if (response.ok) {
         const data = await response.json(); // Parse response as JSON
-        // Store user data in session storage
-        sessionStorage.setItem('userData', JSON.stringify(data));
+        // Store only necessary user data in session storage
+        const userData = {
+          id: data.id,
+          username: data.username,
+          fname: data.fname,
+          lname: data.lname,
+          phno: data.phno,
+          address: data.address,
+          role: data.role,
+          active: data.active,
+          isLoggedIn: true, // Add isLoggedIn flag
+        };
+        sessionStorage.setItem('userData', JSON.stringify(userData));
         // Redirect based on user role
         redirectToRole(data.role); // Assuming the response includes a role property
       } else {
