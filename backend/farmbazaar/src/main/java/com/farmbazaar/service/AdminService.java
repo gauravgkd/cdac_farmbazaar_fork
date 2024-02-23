@@ -39,6 +39,9 @@ public class AdminService {
 
     @Autowired
     private ProductRepository productRepository;
+    
+    @Autowired
+    private OrderRepository orderRepository;
 
     public Admin createAdminUser(Admin user) {
         user.setRole(Role.ADMIN);
@@ -325,5 +328,10 @@ public class AdminService {
         } else {
             return ResponseEntity.ok(userDetailsList);
         }
+    }
+    
+    // Method to get all orders
+    public List<Order> getAllOrders() {
+        return orderRepository.findAll();
     }
 }

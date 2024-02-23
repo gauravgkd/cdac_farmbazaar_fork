@@ -20,6 +20,7 @@ import OrderList from './components/Users/CustomerUsers/OrderList';
 import DeliveryPartner from './components/Users/DeliveryPartnerUsers/DeliveryPartner';
 import CustomerUsers from './components/Users/AdminUsers/CustomerUsers';
 import DeliveryPartnerUsers from './components/Users/AdminUsers/DeliveryPartnerUsers';
+import OrdersTable from './components/Users/AdminUsers/OrdersTable';
 
 function App() {
   return (
@@ -34,6 +35,7 @@ function App() {
         <Route path="/admin/products" element={<Product/>} />
         <Route path="/admin/customer-users" element={<CustomerUsers/>} />
         <Route path="/admin/delivery-partner-users" element={<DeliveryPartnerUsers/>} />
+        <Route path="/admin/orders" element={<OrdersTable/>} />
         <Route path="/signup" element={<SignUp/>} />
         <Route path="/signin" element={<SignIn/>} />
         <Route path="/farmer-dashboard" element={<Farmer/>} />

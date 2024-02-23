@@ -39,7 +39,7 @@ public class AbstractUser {
     @Column(name = "role")
     private Role role;
 
-    @Column(name = "is_active")
+    @Column(name = "is_active", columnDefinition = "BOOLEAN DEFAULT true")
     private boolean isActive;
 
     // Getters and setters

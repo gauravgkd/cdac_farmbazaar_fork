@@ -106,7 +106,7 @@ const AdminUsers = () => {
         <>
         <NavBarAdmin />
         <div className="container-lg">
-            <div className="table-responsive">
+            <div className="table-responsive" style={{ overflowX: 'auto' }}>
                 <div className="table-wrapper">
                 <div className="table-title">
                         <div className="row">

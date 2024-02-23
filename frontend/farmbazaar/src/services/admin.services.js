@@ -95,13 +95,10 @@ const createProduct = (data) => {
   });
 };
 
-const updateProduct = (id, formData) => {
-  return http.put(`/admin/products/${id}`, formData, {
-    headers: {
-      'Content-Type': 'multipart/form-data'
-    }
-  });
+const updateProductAPI = (id, updatedData) => {
+  return http.put(`/admin/products/${id}`, updatedData);
 };
+
 
 const deleteProduct = (id) => {
   return http.delete(`/admin/products/${id}`);
@@ -118,6 +115,10 @@ const assignProductsToFarmer = (farmerId, productIds) => {
 
 const getProductsByFarmerId = (farmerId) => {
   return http.get(`/admin/${farmerId}/products`);
+};
+
+const getAllOrders = () => {
+  return http.get('/admin/orders');
 };
 
 export {
@@ -142,9 +143,10 @@ export {
   deleteCategory,
   getAllCategories,
   createProduct,
-  updateProduct,
+  updateProductAPI,
   deleteProduct,
   getAllProducts,
   assignProductsToFarmer,
-  getProductsByFarmerId
+  getProductsByFarmerId,
+  getAllOrders
 };

@@ -60,6 +60,9 @@ const NavBarAdmin = () => {
               <li className="nav-item">
                 <NavLink to="/admin/assign-product-to-farmer" style={{textDecoration: 'none', color: '#12372A', padding: '0.5rem 1rem'}} activeClassName="active" className="nav-link">Assign Products</NavLink>
               </li>
+              <li className="nav-item">
+                <NavLink to="/admin/orders" style={{textDecoration: 'none', color: '#12372A', padding: '0.5rem 1rem'}} activeClassName="active" className="nav-link">Orders</NavLink>
+              </li>
             </ul>
           </div>
           <div>

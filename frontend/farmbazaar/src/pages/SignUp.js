@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useEffect } from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -16,75 +16,68 @@ import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import InputLabel from '@mui/material/InputLabel';
 import FormControl from '@mui/material/FormControl';
-
-function Copyright(props) {
-  return (
-    <Typography variant="body2" color="text.secondary" align="center" {...props}>
-      {'Copyright © '}
-      <Link color="inherit" href="https://mui.com/">
-        Your Website
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
-
-// TODO remove, this demo shouldn't need to reset the theme.
+import Footer from '../components/NavBars/Footer';
+import NavBarAuth from '../components/NavBars/NavBarAuth';
+import { useNavigate } from 'react-router-dom';
 
 const defaultTheme = createTheme();
 
 export default function SignUp() {
+  const navigate = useNavigate();
 
-    const handleSubmit = async (event) => {
-        event.preventDefault();
-        const data = new FormData(event.currentTarget);
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    const data = new FormData(event.currentTarget);
+  
+    try {
+      const response = await fetch('http://localhost:8080/admin/create-user', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          username: data.get('username'),
+          password: data.get('password'),
+          fname: data.get('firstName'),
+          lname: data.get('lastName'),
+          phno: data.get('phno'),
+          address: data.get('address'),
+          role: data.get('role')
+        }),
+      });
+  
+      if (!response.ok) {
+        throw new Error('Error creating user.');
+      }
+  
+      const responseData = await response.json();
+      console.log('User created:', responseData);
+
+      // Show alert
+      alert('User created successfully!');
+
+      // Redirect to sign-in page
+      navigate('/signin');
       
-        try {
-          const response = await fetch('http://localhost:8080/admin/create-user', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-              username: data.get('username'),
-              password: data.get('password'),
-              fname: data.get('firstName'),
-              lname: data.get('lastName'),
-              phno: data.get('phno'),
-              address: data.get('address'),
-              role: data.get('role')
-            }),
-          });
-      
-          if (!response.ok) {
-            throw new Error('Error creating user.');
-          }
-      
-          const responseData = await response.json();
-          console.log('User created:', responseData);
-          
-          // Optionally, you can redirect to a success page or perform other actions here
-        } catch (error) {
-          console.error('Error:', error.message);
-          // Optionally, you can display an error message to the user
-        }
-      };
-      
+    } catch (error) {
+      console.error('Error:', error.message);
+      // Optionally, you can display an error message to the user
+    }
+  };
 
   return (
     <ThemeProvider theme={defaultTheme}>
       <Container component="main" maxWidth="xs">
+        <NavBarAuth />
         <CssBaseline />
         <Box
           sx={{
-            marginTop: 8,
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
           }}
         >
-          <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+          <Avatar sx={{bgcolor: 'secondary.main' }}>
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
@@ -171,12 +164,6 @@ export default function SignUp() {
                   </Select>
                 </FormControl>
               </Grid>
-              <Grid item xs={12}>
-                <FormControlLabel
-                  control={<Checkbox value="allowExtraEmails" color="primary" />}
-                  label="I want to receive inspiration, marketing promotions and updates via email."
-                />
-              </Grid>
             </Grid>
             <Button
               type="submit"
@@ -188,16 +175,15 @@ export default function SignUp() {
             </Button>
             <Grid container justifyContent="flex-end">
               <Grid item>
-                <Link href="#" variant="body2">
+                <Link href="/signin" variant="body2">
                   Already have an account? Sign in
                 </Link>
               </Grid>
             </Grid>
           </Box>
         </Box>
-        <Copyright sx={{ mt: 5 }} />
+        <Footer/>
       </Container>
     </ThemeProvider>
   );
 }
-

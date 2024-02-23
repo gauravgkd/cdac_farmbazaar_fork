@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { getProductsByFarmerId, updateProductStock } from '../../../services/farmer.services';
+import NavBarFarmer from '../../NavBars/NavBarFarmer';
+import Footer from '../../NavBars/Footer';
 
 const FarmerStocks = () => {
   const [products, setProducts] = useState([]);
@@ -68,6 +70,8 @@ const FarmerStocks = () => {
 
   // Render the product table
   return (
+    <>
+    <NavBarFarmer/>
     <div className="container-lg">
       <div className="table-responsive">
         <div className="table-wrapper">
@@ -116,6 +120,8 @@ const FarmerStocks = () => {
         </div>
       </div>
     </div>
+    <Footer />
+    </>
   );
 };
 

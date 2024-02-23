@@ -3,6 +3,8 @@ import { getCartItems, checkoutOrder } from '../../../services/customer.services
 import Payment from './Payment';
 
 import './cart.css'; 
+import NavBarCustomer from '../../NavBars/NavBarCustomer';
+import Footer from '../../NavBars/Footer';
 
 const Cart = () => {
   const [cartItems, setCartItems] = useState([]);
@@ -73,6 +75,8 @@ const Cart = () => {
   const maxDeliveryDate = new Date(Date.now() + 5 * 24 * 60 * 60 * 1000).toISOString().split('T')[0];
 
   return (
+    <>
+    <NavBarCustomer />
     <div className="container">
       <div className="row">
         <div className="col-md-8">
@@ -143,6 +147,8 @@ const Cart = () => {
         </div>
       </div>
     </div>
+   <Footer />
+    </>
   );
 };
 

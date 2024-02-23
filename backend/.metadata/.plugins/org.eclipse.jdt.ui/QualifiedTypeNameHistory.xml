@@ -5,10 +5,8 @@
 <fullyQualifiedTypeName name="com.farmbazaar.model.repository.ProductRepository"/>
 <fullyQualifiedTypeName name="com.farmbazaar.model.entity.Farmer"/>
 <fullyQualifiedTypeName name="com.farmbazaar.model.entity.Product"/>
-<fullyQualifiedTypeName name="com.farmbazaar.model.entity.Order"/>
 <fullyQualifiedTypeName name="com.farmbazaar.model.entity.CartItem"/>
 <fullyQualifiedTypeName name="com.farmbazaar.model.repository.CustomerRepository"/>
-<fullyQualifiedTypeName name="com.farmbazaar.model.repository.OrderRepository"/>
 <fullyQualifiedTypeName name="com.farmbazaar.model.repository.CartItemRepository"/>
 <fullyQualifiedTypeName name="com.farmbazaar.model.repository.OrderItemRepository"/>
 <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.PostMapping"/>
@@ -18,13 +16,10 @@
 <fullyQualifiedTypeName name="com.farmbazaar.model.entity.Cart"/>
 <fullyQualifiedTypeName name="java.util.Optional"/>
 <fullyQualifiedTypeName name="java.io.Serializable"/>
-<fullyQualifiedTypeName name="com.fasterxml.jackson.annotation.JsonBackReference"/>
 <fullyQualifiedTypeName name="java.util.stream.Collectors"/>
 <fullyQualifiedTypeName name="org.springframework.http.MediaType"/>
 <fullyQualifiedTypeName name="com.fasterxml.jackson.annotation.JsonManagedReference"/>
-<fullyQualifiedTypeName name="com.fasterxml.jackson.annotation.JsonIgnore"/>
 <fullyQualifiedTypeName name="com.farmbazaar.dto.CheckoutRequest"/>
-<fullyQualifiedTypeName name="java.util.Date"/>
 <fullyQualifiedTypeName name="java.util.Calendar"/>
 <fullyQualifiedTypeName name="org.springframework.http.ResponseEntity"/>
 <fullyQualifiedTypeName name="com.farmbazaar.dto.UserRequestDTO"/>
@@ -35,4 +30,16 @@
 <fullyQualifiedTypeName name="com.farmbazaar.model.entity.OrderItem"/>
 <fullyQualifiedTypeName name="java.text.SimpleDateFormat"/>
 <fullyQualifiedTypeName name="java.text.ParseException"/>
+<fullyQualifiedTypeName name="com.farmbazaar.model.entity.DeliveryPartner"/>
+<fullyQualifiedTypeName name="org.springframework.beans.factory.annotation.Autowired"/>
+<fullyQualifiedTypeName name="java.util.Comparator"/>
+<fullyQualifiedTypeName name="com.fasterxml.jackson.annotation.JsonBackReference"/>
+<fullyQualifiedTypeName name="com.fasterxml.jackson.annotation.JsonIgnore"/>
+<fullyQualifiedTypeName name="com.farmbazaar.model.repository.OrderRepository"/>
+<fullyQualifiedTypeName name="com.farmbazaar.service.DeliveryPartnerService"/>
+<fullyQualifiedTypeName name="com.farmbazaar.model.entity.Order"/>
+<fullyQualifiedTypeName name="java.util.List"/>
+<fullyQualifiedTypeName name="java.time.LocalDateTime"/>
+<fullyQualifiedTypeName name="java.util.Date"/>
+<fullyQualifiedTypeName name="com.farmbazaar.dto.UpdateDeliveryRequest"/>
 </qualifiedTypeNameHistroy>

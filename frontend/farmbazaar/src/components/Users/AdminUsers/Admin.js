@@ -73,6 +73,15 @@ const Admin = () => {
               </div>
             </div>
           </div>
+          <div className="col">
+            <div className="card h-100">
+              <div className="card-body d-flex flex-column justify-content-between">
+                <h5 className="card-title">View all Orders</h5>
+                <p className="card-text">View all orders placed by customers.</p>
+                <Link to="/admin/assign-product-to-farmer" className="btn btn-primary mt-auto">Go to Assign Product to Farmer</Link>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
       <Footer />

@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { Badge, Card, ListGroup } from 'react-bootstrap';
+import { Badge, Card, ListGroup, Row, Col } from 'react-bootstrap';
 import { getOrdersByCustomerId } from '../../../services/customer.services';
+import NavBarCustomer from '../../NavBars/NavBarCustomer';
+import Footer from '../../NavBars/Footer';
 
 const OrderList = () => {
   const [orders, setOrders] = useState([]);
@@ -55,43 +57,40 @@ const OrderList = () => {
 
   return (
     <>
-      {orders.length === 0 ? (
-        <div>No orders found</div>
-      ) : (
-        orders.map((order) => (
-          <Card key={order.id} className="my-3">
-            <Card.Header>Order #{order.id}</Card.Header>
-            <Card.Body>
-              <Card.Text>
-                <strong>Total Amount:</strong> ${order.totalAmount}
-              </Card.Text>
-              <ListGroup variant="flush">
-                <ListGroup.Item>
+      <NavBarCustomer />
+      <Row xs={1} md={5} className="g-4">
+        {orders.map((order) => (
+          <Col key={order.id}>
+            <Card
+              className={`text-white bg-${getStatusBadgeVariant(order.deliveryStatus)} mb-3`}
+              style={{ maxWidth: '18rem' }}
+            >
+              <Card.Header>{order.deliveryStatus}</Card.Header>
+              <Card.Body>
+                <Card.Title>Order #{order.id}</Card.Title>
+                <Card.Text>
+                  <strong>Total Amount:</strong> ${order.totalAmount}
+                  <br />
                   <strong>Delivery Address:</strong> {order.deliveryAddress}
-                </ListGroup.Item>
-                <ListGroup.Item>
+                  <br />
                   <strong>Placed Date:</strong>{' '}
                   {order.placedDate ? new Date(order.placedDate).toLocaleDateString() : 'Not specified'}
-                </ListGroup.Item>
-                <ListGroup.Item>
+                  <br />
                   <strong>Expected Delivery Date:</strong>{' '}
                   {order.expectedDeliveryDate ? new Date(order.expectedDeliveryDate).toLocaleDateString() : 'Not specified'}
-                </ListGroup.Item>
-                <ListGroup.Item>
+                  <br />
                   <strong>Delivery Date:</strong>{' '}
                   {order.deliveryDate ? new Date(order.deliveryDate).toLocaleDateString() : 'Not specified'}
-                </ListGroup.Item>
-                <ListGroup.Item>
+                  <br />
                   <strong>Delivery Status:</strong>{' '}
-                  <Badge bg={getStatusBadgeVariant(order.deliveryStatus)}>
-                    {order.deliveryStatus}
-                  </Badge>
-                </ListGroup.Item>
-              </ListGroup>
-            </Card.Body>
-          </Card>
-        ))
-      )}
+                  <Badge bg={getStatusBadgeVariant(order.deliveryStatus)}>{order.deliveryStatus}</Badge>
+                </Card.Text>
+              </Card.Body>
+            </Card>
+          </Col>
+        ))}
+      </Row>
+      <Footer />
     </>
   );
 };

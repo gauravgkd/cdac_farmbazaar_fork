@@ -153,10 +153,9 @@ public class AdminController {
     }
 
     @PutMapping("/products/{id}")
-    public Product updateProduct(@PathVariable int id, @RequestParam("imageFile") MultipartFile imageFile, @RequestParam("name") String name, @RequestParam("price") double price, @RequestParam("quantity") double quantity, @RequestParam("pre_order_quantity") double preOrderQuantity) {
-        return productService.updateProduct(id, imageFile, name, price, quantity, preOrderQuantity);
+    public Product updateProduct(@PathVariable int id, @RequestParam("name") String name, @RequestParam("price") double price, @RequestParam("quantity") double quantity, @RequestParam("pre_order_quantity") double preOrderQuantity) {
+        return productService.updateProduct(id, name, price, quantity, preOrderQuantity);
     }
-
 
     @DeleteMapping("/products/{id}")
     public void deleteProduct(@PathVariable int id) {
@@ -191,5 +190,11 @@ public class AdminController {
     @GetMapping("/users/{id}")
     public ResponseEntity<List<UserDetailsDTO>> getUserById(@PathVariable int id) {
         return adminService.getUserById(id);
+    }
+    
+    // Method to get all orders
+    @GetMapping("/orders")
+    public List<Order> getAllOrders() {
+        return adminService.getAllOrders();
     }
 }

@@ -64,9 +64,6 @@ const Customer = () => {
 <div className="container">
       <div className="row">
         <div className="col-md-12 mb-4">
-          <Link to="/customer-cart" className="btn btn-primary">
-            View Cart
-          </Link>
           <div className="form-group">
             <label htmlFor="categorySelect">Filter by Category:</label>
             <select

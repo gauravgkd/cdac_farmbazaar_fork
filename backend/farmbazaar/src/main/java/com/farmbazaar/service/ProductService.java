@@ -52,16 +52,9 @@ public class ProductService {
         return productRepository.save(product);
     }
 
-    public Product updateProduct(int id, MultipartFile imageFile, String name, double price, double quantity, double preOrderQuantity) {
+    public Product updateProduct(int id, String name, double price, double quantity, double preOrderQuantity) {
         Product product = productRepository.findById(id).orElse(null);
         if (product != null) {
-            try {
-                if (imageFile != null) {
-                    product.setImage(imageFile.getBytes());
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
             product.setName(name);
             product.setPrice(price);
             product.setQuantity(quantity);

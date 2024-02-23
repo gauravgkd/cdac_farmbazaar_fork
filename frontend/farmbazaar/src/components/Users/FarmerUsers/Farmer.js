@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { getProductsByFarmerId, getFarmerById } from '../../../services/farmer.services';
+import NavBarFarmer from '../../NavBars/NavBarFarmer';
+import Footer from '../../NavBars/Footer';
 
 const Farmer = () => {
   const [farmer, setFarmer] = useState(null);
@@ -40,6 +42,8 @@ const Farmer = () => {
   };
 
   return (
+    <>
+    <NavBarFarmer />
     <div className="container mt-5">
       <div className="row">
         <div className="col-md-6">
@@ -61,6 +65,8 @@ const Farmer = () => {
         </div>
       </div>
     </div>
+    <Footer/>
+    </>
   );
 };
 
