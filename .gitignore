@@ -35,6 +35,8 @@ factorypath
 # OS specific files
 .DS_Store
 Thumbs.db
+.bak
+.docx
 
 # Spring Boot application properties files
 src/main/resources/application.properties
