@@ -15,11 +15,7 @@ To run FarmBazaar locally on your machine, follow these steps:
 
 1. **Clone the Repository**: 
    ```bash
-<<<<<<< HEAD
    git clone https://github.com/samarthshubham/cdac_farmbazaar.git
-=======
-   git clone https://github.com/yourusername/farmbazaar.git
->>>>>>> e5c87735348bdbbf3e987b0f3a1b7f49ae9ae428
    ```
 
 2. **Set Up Backend**:
@@ -59,6 +55,54 @@ To run FarmBazaar locally on your machine, follow these steps:
   
 - **Database**:
   - MySQL
+
+## Screenshots
+
+![Screenshot 1](screenshots/signin.png)
+*SignIn*
+
+![Screenshot 2](screenshots/adminpanel.png)
+*Admin Panel*
+
+![Screenshot 3](screenshots/customers.png)
+*Customer Users*
+
+![Screenshot 4](screenshots/farmers.png)
+*Farmer Users*
+
+![Screenshot 5](screenshots/deliverypartners.png)
+*Delivery Partner Users*
+
+![Screenshot 6](screenshots/products.png)
+*Products*
+
+![Screenshot 7](screenshots/assignproducts.png)
+*Assign Products to Farmer*
+
+![Screenshot 8](screenshots/orders.png)
+*All orders*
+
+![Screenshot 9](screenshots/farmer.png)
+*Farmer Dashboard*
+
+![Screenshot 10](screenshots/farmerstocks.png)
+*Add Stocks*
+
+![Screenshot 11](screenshots/user.png)
+*User (products view)*
+
+![Screenshot 12](screenshots/user1.png)
+*User (products view by category)*
+
+![Screenshot 13](screenshots/cart.png)
+*Cart*
+
+![Screenshot 14](screenshots/userorders.png)
+*Orders of user*
+
+![Screenshot 15](screenshots/deliverypartnersorders.png)
+*Delivery Partner Dashboard*
+
 
 ## Contributors
 
