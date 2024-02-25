@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { getAllOrdersForDeliveryPartner, updateDeliveryStatus } from '../../../services/delivery-partner.services';
+import NavBarDeliveryPartner from '../../NavBars/NavBarDeliveryPartner';
+import Footer from '../../NavBars/Footer';
 
 const DeliveryPartner = () => {
     const [orders, setOrders] = useState([]);
@@ -82,6 +84,8 @@ const DeliveryPartner = () => {
 
     // Render the order table
     return (
+        <>
+        <NavBarDeliveryPartner />
         <div className="container-lg">
             <div className="table-responsive">
                 <div className="table-wrapper">
@@ -146,6 +150,8 @@ const DeliveryPartner = () => {
                 </div>
             </div>
         </div>
+        <Footer />
+        </>
     );
 };
 
