@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { getAllProducts, updateProductAPI, deleteProduct } from '../../../services/admin.services';
+import { getAllProducts, updateProduct, deleteProduct } from '../../../services/admin.services';
 import AddProduct from './AddProduct';
+import axios from 'axios';
 import NavBarAdmin from '../../NavBars/NavBarAdmin';
 import Footer from '../../NavBars/Footer';
 
@@ -11,6 +12,7 @@ const Product = () => {
     const [editingProduct, setEditingProduct] = useState(null);
     const [editedData, setEditedData] = useState({});
     const [showAddProductForm, setShowAddProductForm] = useState(false);
+    const [imageFile, setImageFile] = useState(null);
 
     // Fetch all products from the server
     useEffect(() => {
@@ -52,7 +54,28 @@ const Product = () => {
     // Function to handle saving edits to a product
     const handleSave = async (id) => {
         try {
-            await updateProductAPI(id, editedData);
+            const formData = new FormData();
+
+            // Append image file to FormData if selected
+            if (imageFile) {
+                formData.append('imageFile', imageFile);
+            }
+
+            // Append other product details only if they have been edited
+            if (editedData.name !== undefined) {
+                formData.append('name', editedData.name);
+            }
+            if (editedData.price !== undefined) {
+                formData.append('price', editedData.price);
+            }
+            if (editedData.quantity !== undefined) {
+                formData.append('quantity', editedData.quantity);
+            }
+            if (editedData.pre_order_quantity !== undefined) {
+                formData.append('pre_order_quantity', editedData.pre_order_quantity);
+            }
+
+            await updateProduct(id, formData);
             setEditingProduct(null);
             // Fetch updated product list
             const response = await getAllProducts();
@@ -62,6 +85,8 @@ const Product = () => {
             // Handle error
         }
     };
+
+
 
     // Function to handle deleting a product
     const handleDelete = async (id) => {
@@ -82,7 +107,11 @@ const Product = () => {
         }));
     };
 
-
+    // Function to handle image upload
+    const handleImageUpload = (e) => {
+        const file = e.target.files[0]; // Get the selected file
+        setImageFile(file);
+    };
 
     // Render loading state if data is still loading
     if (loading) {
@@ -99,19 +128,19 @@ const Product = () => {
         <>
             <NavBarAdmin />
             <div className="container-lg">
-                <div className="table-wrapper">
-                    <div className="table-title">
-                        <div className="row">
-                            <div className="col-sm-8">
-                                <h2>Products</h2>
-                            </div>
-                            <div className="col-sm-4">
-                                <button type="button" className="btn btn-info add-new" onClick={() => setShowAddProductForm(true)}><i className="fa fa-plus"></i> Add New</button>
+                <div className="table-responsive">
+                    <div className="table-wrapper">
+                        <div className="table-title">
+                            <div className="row">
+                                <div className="col-sm-8">
+                                    <h2>Products</h2>
+                                </div>
+                                <div className="col-sm-4">
+                                    <button type="button" className="btn btn-info add-new" onClick={() => setShowAddProductForm(true)}><i className="fa fa-plus"></i> Add New</button>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    {showAddProductForm && <AddProduct onAdd={handleAddProduct} />}
-                    <div className="table-responsive-x">
+                        {showAddProductForm && <AddProduct onAdd={handleAddProduct} />}
                         <table className="table table-bordered">
                             <thead>
                                 <tr>
@@ -119,6 +148,7 @@ const Product = () => {
                                     <th>Price</th>
                                     <th>Quantity</th>
                                     <th>Pre-order Quantity</th>
+                                    <th>Image</th>
                                     <th>Actions</th>
                                 </tr>
                             </thead>
@@ -154,6 +184,12 @@ const Product = () => {
                                             )}
                                         </td>
                                         <td>
+                                            <img src={product.imageUrl} alt="Product Image" />
+                                            {editingProduct === product.id && (
+                                                <input type="file" className="form-control" onChange={(e) => handleImageUpload(e)} />
+                                            )}
+                                        </td>
+                                        <td>
                                             {editingProduct === product.id ? (
                                                 <button onClick={() => handleSave(product.id)} className="btn btn-success">Save</button>
                                             ) : (
@@ -176,3 +212,4 @@ const Product = () => {
 };
 
 export default Product;
+

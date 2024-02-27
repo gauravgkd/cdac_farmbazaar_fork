@@ -9,6 +9,7 @@ package com.farmbazaar.model.entity;
 
 import javax.persistence.*;
 import java.util.Base64;
+import java.util.List;
 
 @Entity
 public class Product {
@@ -30,6 +31,10 @@ public class Product {
     @ManyToOne
     @JoinColumn(name = "category_id")
     private Category category;
+    
+    @ManyToMany(mappedBy = "products")
+    private List<Farmer> farmers;
+
 
     // Default constructor
     public Product() {
@@ -107,4 +112,14 @@ public class Product {
             this.imageBase64 = Base64.getEncoder().encodeToString(image);
         }
     }
+
+	public List<Farmer> getFarmers() {
+		return farmers;
+	}
+
+	public void setFarmers(List<Farmer> farmers) {
+		this.farmers = farmers;
+	}
+    
+    
 }

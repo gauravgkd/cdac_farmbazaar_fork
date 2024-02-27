@@ -2,7 +2,7 @@
 Author: Shubham Samarth
 Date: February 14, 2024
 Description: This class defines REST endpoints for performing CRUD operations related to various user roles (Admin, Farmer, Delivery Partner, Customer), categories, products, and user creation. It also includes methods for assigning products to farmers and retrieving user details by ID for all user types.
-Last Modified: February 22, 2024
+Last Modified: February 27, 2024
 */
 
 package com.farmbazaar.controller;
@@ -24,177 +24,186 @@ import java.util.List;
 @CrossOrigin(origins = "http://localhost:3000")
 public class AdminController {
 
-    @Autowired
-    private AdminService adminService;
+	@Autowired
+	private AdminService adminService;
 
-    @Autowired
-    private ProductService productService;
-    
-    // CRUD operations for Admin users
+	@Autowired
+	private ProductService productService;
 
-    @PostMapping("/admin-users")
-    public Admin createAdminUser(@RequestBody Admin user) {
-        return adminService.createAdminUser(user);
-    }
+	// CRUD operations for Admin users
 
-    @PutMapping("/admin-users/{id}")
-    public Admin updateAdminUser(@PathVariable int id, @RequestBody Admin userDetails) {
-        return adminService.updateAdminUser(id, userDetails);
-    }
+	@PostMapping("/admin-users")
+	public Admin createAdminUser(@RequestBody Admin user) {
+		return adminService.createAdminUser(user);
+	}
 
-    @DeleteMapping("/admin-users/{id}")
-    public void deleteAdminUser(@PathVariable int id) {
-        adminService.deleteAdminUser(id);
-    }
+	@PutMapping("/admin-users/{id}")
+	public Admin updateAdminUser(@PathVariable int id, @RequestBody Admin userDetails) {
+		return adminService.updateAdminUser(id, userDetails);
+	}
 
-    @GetMapping("/admin-users")
-    public List<Admin> getAllAdminUsers() {
-        return adminService.getAllAdminUsers();
-    }
+	@DeleteMapping("/admin-users/{id}")
+	public void deleteAdminUser(@PathVariable int id) {
+		adminService.deleteAdminUser(id);
+	}
 
-    // CRUD operations for Farmer users
+	@GetMapping("/admin-users")
+	public List<Admin> getAllAdminUsers() {
+		return adminService.getAllAdminUsers();
+	}
 
-    @PostMapping("/farmer-users")
-    public Farmer createFarmerUser(@RequestBody Farmer user) {
-        return adminService.createFarmerUser(user);
-    }
+	// CRUD operations for Farmer users
 
-    @PutMapping("/farmer-users/{id}")
-    public Farmer updateFarmerUser(@PathVariable int id, @RequestBody Farmer userDetails) {
-        return adminService.updateFarmerUser(id, userDetails);
-    }
+	@PostMapping("/farmer-users")
+	public Farmer createFarmerUser(@RequestBody Farmer user) {
+		return adminService.createFarmerUser(user);
+	}
 
-    @DeleteMapping("/farmer-users/{id}")
-    public void deleteFarmerUser(@PathVariable int id) {
-        adminService.deleteFarmerUser(id);
-    }
+	@PutMapping("/farmer-users/{id}")
+	public Farmer updateFarmerUser(@PathVariable int id, @RequestBody Farmer userDetails) {
+		return adminService.updateFarmerUser(id, userDetails);
+	}
 
-    @GetMapping("/farmer-users")
-    public List<Farmer> getAllFarmerUsers() {
-        return adminService.getAllFarmerUsers();
-    }
+	@DeleteMapping("/farmer-users/{id}")
+	public void deleteFarmerUser(@PathVariable int id) {
+		adminService.deleteFarmerUser(id);
+	}
 
-    // CRUD operations for Delivery Partner users
+	@GetMapping("/farmer-users")
+	public List<Farmer> getAllFarmerUsers() {
+		return adminService.getAllFarmerUsers();
+	}
 
-    @PostMapping("/delivery-partner-users")
-    public DeliveryPartner createDeliveryPartnerUser(@RequestBody DeliveryPartner user) {
-        return adminService.createDeliveryPartnerUser(user);
-    }
+	// CRUD operations for Delivery Partner users
 
-    @PutMapping("/delivery-partner-users/{id}")
-    public DeliveryPartner updateDeliveryPartnerUser(@PathVariable int id, @RequestBody DeliveryPartner userDetails) {
-        return adminService.updateDeliveryPartnerUser(id, userDetails);
-    }
+	@PostMapping("/delivery-partner-users")
+	public DeliveryPartner createDeliveryPartnerUser(@RequestBody DeliveryPartner user) {
+		return adminService.createDeliveryPartnerUser(user);
+	}
 
-    @DeleteMapping("/delivery-partner-users/{id}")
-    public void deleteDeliveryPartnerUser(@PathVariable int id) {
-        adminService.deleteDeliveryPartnerUser(id);
-    }
+	@PutMapping("/delivery-partner-users/{id}")
+	public DeliveryPartner updateDeliveryPartnerUser(@PathVariable int id, @RequestBody DeliveryPartner userDetails) {
+		return adminService.updateDeliveryPartnerUser(id, userDetails);
+	}
 
-    @GetMapping("/delivery-partner-users")
-    public List<DeliveryPartner> getAllDeliveryPartnerUsers() {
-        return adminService.getAllDeliveryPartnerUsers();
-    }
+	@DeleteMapping("/delivery-partner-users/{id}")
+	public void deleteDeliveryPartnerUser(@PathVariable int id) {
+		adminService.deleteDeliveryPartnerUser(id);
+	}
 
-    // CRUD operations for Customer users
+	@GetMapping("/delivery-partner-users")
+	public List<DeliveryPartner> getAllDeliveryPartnerUsers() {
+		return adminService.getAllDeliveryPartnerUsers();
+	}
 
-    @PostMapping("/customer-users")
-    public Customer createCustomerUser(@RequestBody Customer user) {
-        return adminService.createCustomerUser(user);
-    }
+	// CRUD operations for Customer users
 
-    @PutMapping("/customer-users/{id}")
-    public Customer updateCustomerUser(@PathVariable int id, @RequestBody Customer userDetails) {
-        return adminService.updateCustomerUser(id, userDetails);
-    }
+	@PostMapping("/customer-users")
+	public Customer createCustomerUser(@RequestBody Customer user) {
+		return adminService.createCustomerUser(user);
+	}
 
-    @DeleteMapping("/customer-users/{id}")
-    public void deleteCustomerUser(@PathVariable int id) {
-        adminService.deleteCustomerUser(id);
-    }
+	@PutMapping("/customer-users/{id}")
+	public Customer updateCustomerUser(@PathVariable int id, @RequestBody Customer userDetails) {
+		return adminService.updateCustomerUser(id, userDetails);
+	}
 
-    @GetMapping("/customer-users")
-    public List<Customer> getAllCustomerUsers() {
-        return adminService.getAllCustomerUsers();
-    }
+	@DeleteMapping("/customer-users/{id}")
+	public void deleteCustomerUser(@PathVariable int id) {
+		adminService.deleteCustomerUser(id);
+	}
 
-    // CRUD operations for categories
+	@GetMapping("/customer-users")
+	public List<Customer> getAllCustomerUsers() {
+		return adminService.getAllCustomerUsers();
+	}
 
-    @PostMapping("/categories")
-    public Category createCategory(@RequestBody Category category) {
-        return adminService.createCategory(category);
-    }
+	// CRUD operations for categories
 
-    @PutMapping("/categories/{id}")
-    public Category updateCategory(@PathVariable int id, @RequestBody Category categoryDetails) {
-        return adminService.updateCategory(id, categoryDetails);
-    }
+	@PostMapping("/categories")
+	public Category createCategory(@RequestBody Category category) {
+		return adminService.createCategory(category);
+	}
 
-    @DeleteMapping("/categories/{id}")
-    public void deleteCategory(@PathVariable int id) {
-        adminService.deleteCategory(id);
-    }
+	@PutMapping("/categories/{id}")
+	public Category updateCategory(@PathVariable int id, @RequestBody Category categoryDetails) {
+		return adminService.updateCategory(id, categoryDetails);
+	}
 
-    @GetMapping("/categories")
-    public List<Category> getAllCategories() {
-        return adminService.getAllCategories();
-    }
+	@DeleteMapping("/categories/{id}")
+	public void deleteCategory(@PathVariable int id) {
+		adminService.deleteCategory(id);
+	}
 
-    // CRUD operations for products
+	@GetMapping("/categories")
+	public List<Category> getAllCategories() {
+		return adminService.getAllCategories();
+	}
 
-    @PostMapping("/products")
-    public Product createProduct(@RequestParam("name") String name,
-                                 @RequestParam("price") double price,
-                                 @RequestParam("quantity") double quantity,
-                                 @RequestParam("pre_order_quantity") double preOrderQuantity,
-                                 @RequestParam("category_id") int categoryId,
-                                 @RequestParam("imageFile") MultipartFile imageFile) {
-        return productService.createProduct(name, price, quantity, preOrderQuantity, categoryId, imageFile);
-    }
+	// CRUD operations for products
 
-    @PutMapping("/products/{id}")
-    public Product updateProduct(@PathVariable int id, @RequestParam("name") String name, @RequestParam("price") double price, @RequestParam("quantity") double quantity, @RequestParam("pre_order_quantity") double preOrderQuantity) {
-        return productService.updateProduct(id, name, price, quantity, preOrderQuantity);
-    }
+	@PostMapping("/products")
+	public Product createProduct(@RequestParam("name") String name, @RequestParam("price") double price,
+			@RequestParam("quantity") double quantity, @RequestParam("pre_order_quantity") double preOrderQuantity,
+			@RequestParam("category_id") int categoryId, @RequestParam("imageFile") MultipartFile imageFile) {
+		return productService.createProduct(name, price, quantity, preOrderQuantity, categoryId, imageFile);
+	}
 
-    @DeleteMapping("/products/{id}")
-    public void deleteProduct(@PathVariable int id) {
-        productService.deleteProduct(id);
-    }
+//    @PutMapping("/products/{id}")
+//    public Product updateProduct(@PathVariable int id, @RequestParam("name") String name, @RequestParam("price") double price, @RequestParam("quantity") double quantity, @RequestParam("pre_order_quantity") double preOrderQuantity) {
+//        return productService.updateProduct(id, name, price, quantity, preOrderQuantity);
+//    }
 
-    @GetMapping("/products")
-    public List<Product> getAllProducts() {
-        return productService.getAllProducts();
-    }
+//    @PutMapping("/products/{id}")
+//    public Product updateProduct(@PathVariable int id, @RequestParam("imageFile") MultipartFile imageFile, @RequestParam("name") String name, @RequestParam("price") double price, @RequestParam("quantity") double quantity, @RequestParam("pre_order_quantity") double preOrderQuantity) {
+//        return productService.updateProduct(id, imageFile, name, price, quantity, preOrderQuantity);
+//    }
 
-    // Assign product to farmer
+	@PutMapping("/products/{id}")
+	public Product updateProduct(@PathVariable int id, @RequestParam(required = false) MultipartFile imageFile,
+			@RequestParam("name") String name, @RequestParam("price") double price,
+			@RequestParam("quantity") double quantity, @RequestParam("pre_order_quantity") double preOrderQuantity) {
+		return productService.updateProduct(id, imageFile, name, price, quantity, preOrderQuantity);
+	}
 
-    @PostMapping("/assign/{farmerId}")
-    public void assignProductsToFarmer(@PathVariable Integer farmerId, @RequestBody List<Integer> productIds) {
-        adminService.assignProductsToFarmer(farmerId, productIds);
-    }
+	@DeleteMapping("/products/{id}")
+	public void deleteProduct(@PathVariable int id) {
+		productService.deleteProduct(id);
+	}
 
-    // Endpoint to get products assigned to a specific farmer
-    @GetMapping("/{farmerId}/products")
-    public List<Product> getProductsByFarmerId(@PathVariable int farmerId) {
-        return adminService.getProductsByFarmerId(farmerId);
-    }
+	@GetMapping("/products")
+	public List<Product> getAllProducts() {
+		return productService.getAllProducts();
+	}
 
-    // creating user based on role (signup)
-    @PostMapping("/create-user")
-    public ResponseEntity<?> createUser(@RequestBody UserRequestDTO userRequestDTO) {
-        return adminService.createUser(userRequestDTO);
-    }
+	// Assign product to farmer
 
-    // Method to get user details by ID for all user types
-    @GetMapping("/users/{id}")
-    public ResponseEntity<List<UserDetailsDTO>> getUserById(@PathVariable int id) {
-        return adminService.getUserById(id);
-    }
-    
-    // Method to get all orders
-    @GetMapping("/orders")
-    public List<Order> getAllOrders() {
-        return adminService.getAllOrders();
-    }
+	@PostMapping("/assign/{farmerId}")
+	public void assignProductsToFarmer(@PathVariable Integer farmerId, @RequestBody List<Integer> productIds) {
+		adminService.assignProductsToFarmer(farmerId, productIds);
+	}
+
+	// Endpoint to get products assigned to a specific farmer
+	@GetMapping("/{farmerId}/products")
+	public List<Product> getProductsByFarmerId(@PathVariable int farmerId) {
+		return adminService.getProductsByFarmerId(farmerId);
+	}
+
+	// creating user based on role (signup)
+	@PostMapping("/create-user")
+	public ResponseEntity<?> createUser(@RequestBody UserRequestDTO userRequestDTO) {
+		return adminService.createUser(userRequestDTO);
+	}
+
+	// Method to get user details by ID for all user types
+	@GetMapping("/users/{id}")
+	public ResponseEntity<List<UserDetailsDTO>> getUserById(@PathVariable int id) {
+		return adminService.getUserById(id);
+	}
+
+	// Method to get all orders
+	@GetMapping("/orders")
+	public List<Order> getAllOrders() {
+		return adminService.getAllOrders();
+	}
 }

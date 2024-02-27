@@ -99,6 +99,14 @@ const updateProductAPI = (id, updatedData) => {
   return http.put(`/admin/products/${id}`, updatedData);
 };
 
+const updateProduct = (id, formData) => {
+  return http.put(`/admin/products/${id}`, formData, {
+    headers: {
+      'Content-Type': 'multipart/form-data'
+    }
+  });
+};
+
 
 const deleteProduct = (id) => {
   return http.delete(`/admin/products/${id}`);
@@ -144,6 +152,7 @@ export {
   getAllCategories,
   createProduct,
   updateProductAPI,
+  updateProduct,
   deleteProduct,
   getAllProducts,
   assignProductsToFarmer,
