@@ -13,6 +13,7 @@ mvn-wrapper.jar
 .project
 factorypath
 .springBeans
+.metadata/
 
 # React specific files and directories
 /node_modules
