@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { getAllProducts, updateProduct, deleteProduct } from '../../../services/admin.services';
 import AddProduct from './AddProduct';
-import axios from 'axios';
 import NavBarAdmin from '../../NavBars/NavBarAdmin';
 import Footer from '../../NavBars/Footer';
 
@@ -13,6 +12,7 @@ const Product = () => {
     const [editedData, setEditedData] = useState({});
     const [showAddProductForm, setShowAddProductForm] = useState(false);
     const [imageFile, setImageFile] = useState(null);
+    const [selectedCategory, setSelectedCategory] = useState('All');
 
     // Fetch all products from the server
     useEffect(() => {
@@ -30,6 +30,10 @@ const Product = () => {
 
         fetchProducts();
     }, []);
+
+    const categories = [...new Set(products.map(product => product.category.name))];
+
+    const filteredProducts = selectedCategory === 'All' ? products : products.filter(product => product.category.name === selectedCategory);
 
     // Function to handle adding a new product
     const handleAddProduct = async (newProduct) => {
@@ -86,8 +90,6 @@ const Product = () => {
         }
     };
 
-
-
     // Function to handle deleting a product
     const handleDelete = async (id) => {
         try {
@@ -113,17 +115,6 @@ const Product = () => {
         setImageFile(file);
     };
 
-    // Render loading state if data is still loading
-    if (loading) {
-        return <div>Loading...</div>;
-    }
-
-    // Render error state if there is an error
-    if (error) {
-        return <div>Error: {error}</div>;
-    }
-
-    // Render the product table
     return (
         <>
             <NavBarAdmin />
@@ -137,6 +128,22 @@ const Product = () => {
                                 </div>
                                 <div className="col-sm-4">
                                     <button type="button" className="btn btn-info add-new" onClick={() => setShowAddProductForm(true)}><i className="fa fa-plus"></i> Add New</button>
+                                </div>
+                                <div className="col-md-12 mb-4">
+                                    <div className="form-group">
+                                        <label htmlFor="categorySelect">Filter by Category:</label>
+                                        <select
+                                            id="categorySelect"
+                                            className="form-control"
+                                            value={selectedCategory}
+                                            onChange={(e) => setSelectedCategory(e.target.value)}
+                                        >
+                                            <option value="All">All</option>
+                                            {categories.map(category => (
+                                                <option key={category} value={category}>{category}</option>
+                                            ))}
+                                        </select>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -153,7 +160,7 @@ const Product = () => {
                                 </tr>
                             </thead>
                             <tbody>
-                                {products.map(product => (
+                                {filteredProducts.map(product => (
                                     <tr key={product.id}>
                                         <td>
                                             {editingProduct === product.id ? (
@@ -191,25 +198,26 @@ const Product = () => {
                                         </td>
                                         <td>
                                             {editingProduct === product.id ? (
-                                                <button onClick={() => handleSave(product.id)} className="btn btn-success">Save</button>
-                                            ) : (
-                                                <>
-                                                    <button onClick={() => handleEdit(product.id)} className="btn btn-primary">Edit</button>
-                                                    <button onClick={() => handleDelete(product.id)} className="btn btn-danger ml-2">Delete</button>
-                                                </>
-                                            )}
-                                        </td>
-                                    </tr>
-                                ))}
-                            </tbody>
-                        </table>
+                                                <button onClick={() => handleSave(product.id)}
+                                                className="btn btn-success">Save</button>
+                                                ) : (
+                                                    <>
+                                                        <button onClick={() => handleEdit(product.id)} className="btn btn-primary">Edit</button>
+                                                        <button onClick={() => handleDelete(product.id)} className="btn btn-danger ml-2">Delete</button>
+                                                    </>
+                                                )}
+                                            </td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <Footer />
-        </>
-    );
-};
-
-export default Product;
-
+                <Footer />
+            </>
+        );
+    };
+    
+    export default Product;
+    
